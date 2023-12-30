@@ -36,9 +36,14 @@ vim.g.maplocalleader = ' '
 
 require('lazy').setup('plugins')
 
--- [[ Basic Keymaps ]]
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 
--- Keymaps for better default experience
+function R(name)
+  require("plenary.reload").reload_module(name)
+end
+
+-- [[ Basic Keymaps ]]
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -49,15 +54,35 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float,
+  { desc = 'Open [v]im [d]iagnostic message' })
+vim.keymap.set('n', '<leader>vq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
+
+-- [[Autocommands]]
+-- [[Autocmd Formatting]]
+local format_group = augroup("Format", {})
+-- [[Remove trailing whitespace before saving]]
+autocmd({ "BufWritePre" }, {
+  group = format_group,
+  pattern = "*",
+  command = [[%s/\s\+$//e]],
+})
+-- Format after saving
+-- autocmd({ "BufWritePost" }, {
+--   group = format_group,
+--   pattern = "*",
+--   command = [[FormatWrite]],
+-- })
+-- [[Autocmd Highlighting]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
+-- [[ Highlight on yank ]] See `:help vim.highlight.on_yank()`
+autocmd('TextYankPost', {
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank({
+      higroup = "IncSearch",
+      timeout = 200,
+    })
   end,
   group = highlight_group,
   pattern = '*',
@@ -132,16 +157,31 @@ local function telescope_live_grep_open_files()
     prompt_title = 'Live Grep in Open Files',
   }
 end
-vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })
-vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+
+vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[s]earch [/] in open files' })
+vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[s]earch [s]elect telescope' })
+vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'search [g]it [f]iles' })
+-- vim.keymap.set('n', '<C-p>', require('telescope.builtin').git_files, { desc = 'gre[C-p] git files'})
+vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[s]earch [f]iles' })
+vim.keymap.set('n', '<leader>pf', require('telescope.builtin').find_files, { desc = 'gre[p] [f]iles' })
+vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[s]earch [h]elp' })
+vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[s]earch current [w]ord' })
+vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[s]earch by [g]rep' })
+vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[s]earch by grep on [G]it root' })
+vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[s]earch [d]iagnostics' })
+vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[s]earch [r]esume' })
+vim.keymap.set('n', '<leader>tc', require('telescope.builtin').commands, {}, { desc = '[t]elescope [c]ommands ' })
+vim.keymap.set('n', '<leader>tk', require('telescope.builtin').keymaps, {}, { desc = '[t]elescope [k]eymaps' })
+vim.keymap.set('n', '<leader>ti', require('telescope.builtin').lsp_implementations, {},
+  { desc = '[telescope] [i]mplementations' })
+vim.keymap.set('n', '<leader>ps', function()
+  require('telescope.builtin').grep_string({
+    search = vim.fn.input("Grep > ")
+  })
+end)
+-- vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, {}, { desc = 'Search open buffers' })
+-- vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {}, { desc = 'Search help docs' })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -184,19 +224,19 @@ vim.defer_fn(function()
         enable = true,
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
-          [']m'] = '@function.outer',
+          ['],'] = '@function.outer',
           [']]'] = '@class.outer',
-        },
-        goto_next_end = {
-          [']M'] = '@function.outer',
-          [']['] = '@class.outer',
         },
         goto_previous_start = {
           ['[m'] = '@function.outer',
           ['[['] = '@class.outer',
         },
+        goto_next_end = {
+          [']>'] = '@function.outer',
+          [']['] = '@class.outer',
+        },
         goto_previous_end = {
-          ['[M'] = '@function.outer',
+          ['[<'] = '@function.outer',
           ['[]'] = '@class.outer',
         },
       },
@@ -222,6 +262,7 @@ local on_attach = function(_, bufnr)
   --
   -- In this case, we create a function that lets us more easily define mappings specific
   -- for LSP related items. It sets the mode, buffer and description for us each time.
+  vim.diagnostic.config({ virtual_text = true })
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -229,9 +270,8 @@ local on_attach = function(_, bufnr)
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
-  ---@return
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>vca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -281,12 +321,8 @@ require('which-key').register({
 require('mason').setup()
 require('mason-lspconfig').setup()
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
---
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
@@ -301,8 +337,10 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
-      -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-      diagnostics = { disable = { 'missing-fields' } },
+      diagnostics = {
+        globals = { 'vim' },
+        disable = { 'missing-fields' }
+      },
     },
   },
 }
@@ -354,28 +392,30 @@ cmp.setup {
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
+    ['<C-y>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+    -- ['<Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif luasnip.expand_or_locally_jumpable() then
+    --     luasnip.expand_or_jump()
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+    ['<Tab>'] = nil,
+    -- ['<S-Tab>'] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_prev_item()
+    --   elseif luasnip.locally_jumpable(-1) then
+    --     luasnip.jump(-1)
+    --   else
+    --     fallback()
+    --   end
+    -- end, { 'i', 's' }),
+    ['<S-Tab>'] = nil,
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -393,33 +433,8 @@ cmp.setup {
 -- require("connor.set")
 -- require("connor.remap")
 --
--- local augroup = vim.api.nvim_create_augroup
--- local connorGroup = augroup("connor", {})
 --
--- local autocmd = vim.api.nvim_create_autocmd
--- local yank_group = augroup("HighlightYank", {})
 --
--- function R(name)
--- 	require("plenary.reload").reload_module(name)
--- end
---
--- autocmd("TextYankPost", {
--- 	group = yank_group,
--- 	pattern = "*",
--- 	callback = function()
--- 		vim.highlight.on_yank({
--- 			higroup = "IncSearch",
--- 			timeout = 200,
--- 		})
--- 	end,
--- })
---
--- -- Remove trailing whitespace before saving
--- autocmd({ "BufWritePre" }, {
--- 	group = connorGroup,
--- 	pattern = "*",
--- 	command = [[%s/\s\+$//e]],
--- })
 --
 -- -- Format after saving
 -- autocmd({ "BufWritePost" }, {
