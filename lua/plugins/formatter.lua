@@ -1,0 +1,146 @@
+vim.keymap.set("n", "<leader>F", ":Format<CR>", { noremap = true, silent = false })
+
+-- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
+return {
+  -- 'mhartington/formatter.nvim',
+  -- util = require("formatter.util"),
+  -- config = function()
+  --   require("formatter").setup({
+  --     -- Enable or disable logging
+  --     logging = true,
+  --     -- Set the log level
+  --     log_level = vim.log.levels.WARN,
+  --     -- All formatter configurations are opt-in
+  --     filetype = {
+  --       -- Formatter configurations for filetype "lua" go here
+  --       -- and will be executed in order
+  --       lua = {
+  --         -- "formatter.filetypes.lua" defines default configurations for the
+  --         --"lua" filetype
+  --         require("formatter.filetypes.lua").stylua,
+  --
+  --         -- You can also define your own configuration
+  --         function()
+  --           -- Supports conditional formatting
+  --           if util.get_current_buffer_file_name() == "special.lua" then
+  --             return nil
+  --           end
+  --
+  --           -- Full specification of configurations is down below and in Vim help
+  --           -- files
+  --           return {
+  --             exe = "stylua",
+  --             args = {
+  --               "--search-parent-directories",
+  --               "--stdin-filepath",
+  --               util.escape_path(util.get_current_buffer_file_path()),
+  --               "--",
+  --               "-",
+  --             },
+  --             stdin = true,
+  --           }
+  --         end,
+  --       },
+  --       sh = {
+  --         require("formatter.filetypes.sh").shfmt,
+  --       },
+  --       python = {
+  --         require("formatter.filetypes.python").black,
+  --       },
+  --       javascript = {
+  --         require("formatter.filetypes.javascript").prettier,
+  --       },
+  --       typescript = {
+  --         require("formatter.filetypes.typescript").prettier,
+  --       },
+  --       typescriptreact = {
+  --         require("formatter.filetypes.typescriptreact").prettier,
+  --       },
+  --       html = {
+  --         require("formatter.filetypes.html").prettier,
+  --         -- function()
+  --         -- 	if string.match(util.get_current_buffer_file_path(), "template") then
+  --         -- 		return nil
+  --         -- 	end
+  --         --
+  --         -- 	return {
+  --         -- 		exe = "prettier",
+  --         -- 		args = {
+  --         -- 			"--stdin-filepath",
+  --         -- 			util.escape_path(util.get_current_buffer_file_path()),
+  --         -- 			"--parser",
+  --         -- 			"html",
+  --         -- 		},
+  --         -- 		stdin = true,
+  --         -- 	}
+  --         -- end,
+  --       },
+  --       css = {
+  --         require("formatter.filetypes.css").prettier,
+  --       },
+  --       json = {
+  --         require("formatter.filetypes.json").prettier,
+  --       },
+  --       markdown = {
+  --         require("formatter.filetypes.markdown").prettier,
+  --       },
+  --       yaml = {
+  --         require("formatter.filetypes.yaml").prettier,
+  --       },
+  --       go = {
+  --         require("formatter.filetypes.go").gofmt,
+  --       },
+  --       rust = {
+  --         require("formatter.filetypes.rust").rustfmt,
+  --       },
+  --       cpp = {
+  --         require("formatter.filetypes.cpp").clang_format,
+  --       },
+  --       c = {
+  --         require("formatter.filetypes.c").clang_format,
+  --       },
+  --       sql = {
+  --         require("formatter.filetypes.sql").sqlformat,
+  --       },
+  --       -- vue = {
+  --       --     -- "formatter.filetypes.vue" defines default configurations for any
+  --       --     -- filetype
+  --       --     require("formatter.filetypes.vue").prettier,
+  --       -- },
+  --       -- svelte = {
+  --       --     -- "formatter.filetypes.svelte" defines default configurations for any
+  --       --     -- filetype
+  --       --     require("formatter.filetypes.svelte").prettier,
+  --       -- },
+  --       -- java = {
+  --       --     -- "formatter.filetypes.java" defines default configurations for any
+  --       --     -- filetype
+  --       --     require("formatter.filetypes.java").google_java_format,
+  --       -- },
+  --       -- kotlin = {
+  --       --     -- "formatter.filetypes.kotlin" defines default configurations for any
+  --       --     -- filetype
+  --       --     require("formatter.filetypes.kotlin").ktlint,
+  --       -- },
+  --       -- php = {
+  --       --     -- "formatter.filetypes.php" defines default configurations for any
+  --       --     -- filetype
+  --       --     require("formatter.filetypes.php").phpcbf,
+  --       -- },
+  --       -- ruby = {
+  --       --     -- "formatter.filetypes.ruby" defines default configurations for any
+  --       --     -- filetype
+  --       --     require("formatter.filetypes.ruby").rufo,
+  --       -- },
+  --
+  --       -- Use the special "*" filetype for defining formatter configurations on
+  --       -- any filetype
+  --       ["*"] = {
+  --         -- "formatter.filetypes.any" defines default configurations for any
+  --         -- filetype
+  --         require("formatter.filetypes.any").remove_trailing_whitespace,
+  --       },
+  --     },
+  --   })
+  -- end
+}
