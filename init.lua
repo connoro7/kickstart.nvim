@@ -170,17 +170,15 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[s]earch by grep on [G]it root' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[s]earch [d]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[s]earch [r]esume' })
-vim.keymap.set('n', '<leader>tc', require('telescope.builtin').commands, {}, { desc = '[t]elescope [c]ommands ' })
-vim.keymap.set('n', '<leader>tk', require('telescope.builtin').keymaps, {}, { desc = '[t]elescope [k]eymaps' })
-vim.keymap.set('n', '<leader>ti', require('telescope.builtin').lsp_implementations, {},
-  { desc = '[telescope] [i]mplementations' })
+vim.keymap.set('n', '<leader>tc', require('telescope.builtin').commands, { desc = '[t]elescope [c]ommands ' })
+vim.keymap.set('n', '<leader>tk', require('telescope.builtin').keymaps, { desc = '[t]elescope [k]eymaps' })
+vim.keymap.set('n', '<leader>ti', require('telescope.builtin').lsp_implementations,
+  { desc = '[t]elescope [i]mplementations' })
 vim.keymap.set('n', '<leader>ps', function()
   require('telescope.builtin').grep_string({
     search = vim.fn.input("Grep > ")
   })
 end)
--- vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, {}, { desc = 'Search open buffers' })
--- vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, {}, { desc = 'Search help docs' })
 
 
 -- [[ Configure Treesitter ]]
@@ -197,6 +195,10 @@ vim.defer_fn(function()
 
     highlight = { enable = true },
     indent = { enable = true },
+    autotag = {
+      enable = true,
+      filetypes = { "html", "xml" }
+    },
     incremental_selection = {
       enable = true,
       keymaps = {
