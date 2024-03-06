@@ -80,12 +80,16 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down"
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 -- usage: append line below to current line, separated by a space
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Append line below to current line" })
--- usage: in normal mode, <leader>s for instant regex match
-vim.keymap.set("n", "<leader>ss", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/I<Left><Left>]], { desc = "" })
--- usage: in visual mode, <leader>s for regex match across entire line
-vim.keymap.set("v", "<leader>ss", [[:s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "" })
--- usage: <leader>S for global regex match
-vim.keymap.set("n", "<leader>SS", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "" })
+-- usage: in normal mode, <leader>S for instant regex match
+vim.keymap.set("n", "<leader>S", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/I<Left><Left>]], { desc = "Replace under cursor." })
+-- usage: in visual mode, <leader>ss for regex match across entire line
+vim.keymap.set("v", "<leader>ss", [[:s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace across line." })
+-- usage: <leader>SS for global regex match
+vim.keymap.set("n", "<leader>SS", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Replace across buffer." })
+-- usage: in visual mode, <leader>vs for match across selection
+vim.keymap.set("v", "<leader>vs", [[:s/\%V//gI<Left><Left><Left><Left>]],
+	{ desc = "Replace across current selection." })
 -- usage: in normal or visual mode, <leader>bs to replace at start of line
 vim.keymap.set({ "n", "v" }, "<leader>bs", [[:s/^//<Left>]], { desc = "Replace at start of current line" })
 -- usage: in visual mode, gat to title-case current selection
@@ -167,19 +171,19 @@ vim.keymap.set("n", "<leader>bp", ":0bp<CR>", { desc = "Go to previous buffer in
 vim.keymap.set("n", "<leader>bj", function()
 	local count = vim.v.count1
 	vim.cmd(count .. "bn")
-end, { desc = "Jump to next N buffer, prepend command with N" })
+end, { desc = "Jump to next N buffer, prepend command with N." })
 vim.keymap.set("n", "<leader>bun", function()
 	local count = vim.v.count1
 	vim.cmd(count .. "unh")
-end, { desc = "Unhide N buffers, prepend command with N" })
+end, { desc = "Unhide N buffers, prepend command with N." })
 -- usage: new tmux session, silently
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux new tmux-sessionizer<CR>", {desc = 'New tmux session, silently'})
 
 -- usage: quick fix navigation
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "" })
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "" })
-vim.keymap.set("n", "<leader>K", "<cmd>lnext<CR>zz", { desc = "" })
-vim.keymap.set("n", "<leader>J", "<cmd>lprev<CR>zz", { desc = "" })
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Quickfix next" })
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Quickfix prev" })
+vim.keymap.set("n", "<leader>K", "<cmd>lnext<CR>zz", { desc = "Quickfix next" })
+vim.keymap.set("n", "<leader>J", "<cmd>lprev<CR>zz", { desc = "Quickfix prev" })
 
 -- Bash Commands
 -- usage: Silently make current file executable
@@ -190,10 +194,12 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", {
 -- usage: Show current file's path
 vim.keymap.set("n", "<leader>pwd", "<cmd>echo expand('%:p')<CR>", {
 	silent = true,
-	desc = "Show current file path",
+	desc = "Print working directory",
 })
 -- usage: run current file
--- vim.keymap.set("n", "<leader>pyr", "<cmd>!python %<CR>", { desc = '' });
+vim.keymap.set("n", "<leader>pyr", "<cmd>!python %<CR>", { desc = '[py]thon [r]un current buffer' });
+-- usage: :PyrightOrganizeImports
+vim.keymap.set("n", "<leader>POI", "<cmd>PyrightOrganizeImports<CR>", { desc = '[P]yright [O]rganize [I]mports' });
 
 -- Formatting
 -- usage: in normal mode, <leader>w to toggle line wrapping
@@ -218,4 +224,3 @@ vim.keymap.set(
 vim.keymap.set("n", "Q", "<nop>", { desc = "Unset Q" })
 vim.keymap.set("n", "<C-b>", "<nop>", { desc = "Unset <C-b>" })
 -- vim.keymap.set("n", "<C-h>", "<nop>", { desc = 'Unset <C-h>' })
-

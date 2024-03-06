@@ -144,12 +144,19 @@ return {
             bottom_add = { hl = 'GitConflictAddBottom' },
           },
         },
-        vim.keymap.set('n', 'co', '<Plug>(git-conflict-ours)'),
-        vim.keymap.set('n', 'ct', '<Plug>(git-conflict-theirs)'),
-        vim.keymap.set('n', 'cb', '<Plug>(git-conflict-both)'),
-        vim.keymap.set('n', 'c0', '<Plug>(git-conflict-none)'),
-        vim.keymap.set('n', 'gp', '<Plug>(git-conflict-prev-conflict)'),
-        vim.keymap.set('n', 'gn', '<Plug>(git-conflict-next-conflict)'),
+        vim.keymap.set('n', 'cr', '<Plug>(git-conflict-ours)', { desc = "[c]hoose [r]ed" }),
+        vim.keymap.set('n', 'cb', '<Plug>(git-conflict-theirs)', { desc = "[c]hoose [b]lue" }),
+        vim.keymap.set('n', 'cb', '<Plug>(git-conflict-both)', { desc = "[c]hoose [b]oth" }),
+        vim.keymap.set('n', 'c0', '<Plug>(git-conflict-none)', { desc = "[c]hoose [n]one" }),
+        vim.keymap.set('n', 'gp', '<Plug>(git-conflict-prev-conflict)', { desc = "[g]oto prev" }),
+        vim.keymap.set('n', 'gn', '<Plug>(git-conflict-next-conflict)', { desc = "[g]oto next" }),
+        -- Default:
+        -- vim.keymap.set('n', 'co', '<Plug>(git-conflict-ours)'),
+        -- vim.keymap.set('n', 'ct', '<Plug>(git-conflict-theirs)'),
+        -- vim.keymap.set('n', 'cb', '<Plug>(git-conflict-both)'),
+        -- vim.keymap.set('n', 'c0', '<Plug>(git-conflict-none)'),
+        -- vim.keymap.set('n', 'gp', '<Plug>(git-conflict-prev-conflict)'),
+        -- vim.keymap.set('n', 'gn', '<Plug>(git-conflict-next-conflict)'),
 
       }
     end

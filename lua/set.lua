@@ -1,59 +1,55 @@
 -- [[ Setting options ]]
--- See `:help vim.o`
-
---vim.opt.guicursor = ""
-
-vim.opt.nu = true --
-vim.opt.relativenumber = true
--- vim.wo.number = true
-
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-
-vim.opt.smartindent = true
-vim.o.breakindent = true
-
-vim.opt.linebreak = true   -- :set lbr by default so I can toggle wrap without weird linebreaks
-vim.opt.sidescrolloff = 10 -- when text wrap is off, keeps cursor centered on screen
-
-vim.opt.wrap = false       -- default don't wrap, but toggle with `:set wrap!`
-
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-vim.opt.undofile = true
--- vim.o.undofile = true
-
-vim.opt.ignorecase = true
-vim.o.smartcase = true
-vim.opt.hlsearch = true
-vim.opt.incsearch = true
-
-vim.opt.termguicolors = true -- use "gui" :hl attributes instead of "cterm" :hl attributes
-
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-
--- Decrease update time
-vim.opt.updatetime = 250 -- default: 4000ms
--- vim.o.updatetime = 250
-vim.o.timeoutlen = 1000  -- Controls how long keymaps will wait for next keystroke, minimum 300ms if you have ninja reflexes, default: 1000ms
-
-vim.opt.colorcolumn = "80"
--- Color column color settings found in ../../after/plugin/colors.lua
+-- See `:help vim.opt`
 
 vim.g.mapleader = " "
+vim.opt.isfname:append("@-@")
+-- vim.wo.number = true
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
+local options = {
+	backup = false,                       -- creates a backup file
+	-- clipboard = "unnamedplus", -- allows neovim to access the system clipboard, comment out to keep OS clipboard independent. :h clipboard for more info.
+	cmdheight = 1,                        -- more space in the neovim command line for displaying messages, use :set cmdheight=X when running multiline commands
+	completeopt = { "menuone", "noselect" }, -- Set completeopt to have a better completion experience, mostly for cmp
+	conceallevel = 0,                     -- so that `` is visible in markdown files
+	fileencoding = "utf-8",               -- the encoding written to a file
+	hlsearch = true,                      -- highlight all matches on previous search pattern
+	ignorecase = true,                    -- ignore case in search patterns
+	mouse = "a",                          -- allow the mouse to be used in neovim
+	-- pumheight = 10,                       -- set max height of popup menu, such as cmp
+	showmode = false,                     -- we don't need to see things like -- INSERT -- anymore
+	showtabline = 2,                      -- always show tabs
+	softtabstop = 4,                      -- use both tabs and spaces so that indenting works better
+	colorcolumn = "80",                   -- Color column color settings found in ../../after/plugin/colors.lua
+	smartcase = true,                     -- smart case
+	smartindent = true,                   -- make indenting smarter again
+	-- guicursor = "",
+	linebreak = true,                     -- :set lbr by default so I can toggle wrap without weird linebreaks
+	splitbelow = true,                    -- force all horizontal splits to go below current window
+	splitright = true,                    -- force all vertical splits to go to the right of current window
+	swapfile = false,                     -- creates a swapfile
+	termguicolors = true,                 -- sets term gui colors (most terminals support this), using "gui" :hl attributes instead of "cterm" :hl attributes
+	timeoutlen = 1000,                    -- Controls how long keymaps will wait for next keystroke, minimum 300ms if you have ninja reflexes, default: 1000ms
+	undofile = true,                      -- enable persistent undo
+	undodir = os.getenv("HOME") .. "/.vim/undodir",
+	updatetime = 250,                     -- faster completion (4000ms default)
+	-- writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+	expandtab = true,                     -- convert tabs to spaces
+	shiftwidth = 4,                       -- the number of spaces inserted for each indentation
+	tabstop = 4,                          -- insert 2 spaces for a tab
+	cursorline = true,                    -- highlight the current line
+	number = true,                        -- set numbered lines
+	relativenumber = true,                -- set relative numbered lines
+	numberwidth = 1,                      -- set number column width to 2 {default 4}
+	signcolumn = "yes",                   -- always show the sign column, otherwise it would shift the text each time
+	wrap = false,                         -- default do not wrap lines
+	scrolloff = 8,                        -- is one of my fav
+	sidescrolloff = 10,
+	-- guifont = "monospace:h17",            -- the font used in graphical neovim applications
+	laststatus = 3, -- when the last window will get a status line (default 2. 0 = never, 1 = iff >=2 windows, 2 = always, 3 = always & ONLY the last window)
+	foldlevel = 99,
+	foldmethod = "indent",
+}
 
--- Enable mouse mode
--- vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.o.clipboard = 'unnamedplus'
+for k, v in pairs(options) do
+	vim.opt[k] = v
+end

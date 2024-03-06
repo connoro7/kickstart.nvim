@@ -68,7 +68,16 @@ autocmd({ "BufWritePre" }, {
   pattern = "*",
   command = [[%s/\s\+$//e]],
 })
--- Format after saving
+-- [[Format python files with black]]
+autocmd({ "BufWritePost" }, { -- Use BufWritePost to ensure file has been saved first
+  group = format_group,       -- then have black format the file and reload the file with
+  pattern = "*.py",           -- edit seems to be ideal. Save twice to save the formatting.
+  callback = function()
+    vim.cmd("silent !black --quiet %")
+    vim.cmd("redraw")
+  end,
+})
+-- [[Format after saving]]
 -- autocmd({ "BufWritePost" }, {
 --   group = format_group,
 --   pattern = "*",
@@ -98,6 +107,9 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    file_ignore_patterns = {
+      "DC/sc*"
+    }
   },
 }
 
@@ -170,8 +182,8 @@ vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc
 vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[s]earch by grep on [G]it root' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[s]earch [d]iagnostics' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[s]earch [r]esume' })
-vim.keymap.set('n', '<leader>tc', require('telescope.builtin').commands, { desc = '[t]elescope [c]ommands ' })
-vim.keymap.set('n', '<leader>tk', require('telescope.builtin').keymaps, { desc = '[t]elescope [k]eymaps' })
+vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[s]earch [c]ommands ' })
+vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[s]earch [k]eymaps' })
 vim.keymap.set('n', '<leader>ti', require('telescope.builtin').lsp_implementations,
   { desc = '[t]elescope [i]mplementations' })
 vim.keymap.set('n', '<leader>ps', function()
@@ -188,7 +200,7 @@ vim.defer_fn(function()
   -- -@diagnostic disable-next-line: missing-fields
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'json', 'markdown', 'query', 'regex', 'yaml' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -202,10 +214,10 @@ vim.defer_fn(function()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<c-space>',
-        node_incremental = '<c-space>',
-        scope_incremental = '<c-s>',
-        node_decremental = '<M-space>',
+        init_selection = '<S-space>',
+        node_incremental = '<S-space>',
+        scope_incremental = '<S-s>',
+        node_decremental = '<C-S-space>',
       },
     },
     textobjects = {
@@ -272,6 +284,7 @@ local on_attach = function(_, bufnr)
 
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
+
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>vca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
@@ -284,7 +297,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<C-K>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -298,6 +311,11 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
+
+  -- Disable hover in favor of Pyright
+  -- if client.name == "ruff_lsp" then
+  --   client.server_capabilities.hoverProvider = false
+  -- end
 end
 
 -- document existing key chains
@@ -327,11 +345,36 @@ require('mason-lspconfig').setup()
 --  the `settings` field of the server config. You must look up that documentation yourself.
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
+
 local servers = {
-  -- clangd = {},
+  -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+  -- AVAILABLE SERVERS & THEIR NAMES: https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
+  bashls = {},
+  clangd = {},
   -- gopls = {},
-  pyright = {},
-  -- rust_analyzer = {},
+  ruff_lsp = {
+    cmd = { 'ruff-lsp' },
+    filetypes = { 'python' },
+    settings = { -- see: https://github.com/astral-sh/ruff-lsp?tab=readme-ov-file#settings
+      lint = { args = { "--line-length=99" } },
+      format = { args = { "--line-length=99" } },
+    },
+    single_file_support = true
+  },
+  pyright = {
+    settings = { -- see Microsoft's Pyright settings documentation: https://github.com/microsoft/pyright/blob/main/docs/settings.md
+      pyright = {
+        autoImportCompletion = true,
+        -- disableOrganizeImports = true, -- set to true to use Ruff's import organizer
+      },
+      python = {
+        analysis = {
+          -- ignore = { '*' } -- ignore all files for analysis to exclusively use Ruff for linting, not formatting
+        }
+      }
+    },
+  },
+  rust_analyzer = {},
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
@@ -363,6 +406,25 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
+    -- if server_name == 'ruff_lsp' then -- if server_name is ruff_lsp,
+    --   local ruff_on_attach = function(client, bufnr)
+    --     client.server_capabilities.hoverProvider = false
+    --   end
+    --   require('lspconfig')[server_name].setup {
+    --     capabilities = capabilities,
+    --     on_attach = ruff_on_attach,
+    --     settings = servers[server_name],
+    --     filetypes = (servers[server_name] or {}).filetypes,
+    --   }
+    -- else -- if server_name is not ruff_lsp, on_attach needs to be on_attach
+    --   require('lspconfig')[server_name].setup {
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    --     settings = servers[server_name],
+    --     filetypes = (servers[server_name] or {}).filetypes,
+    --   }
+    -- end
+
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
@@ -391,8 +453,10 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-N>'] = cmp.mapping.scroll_docs(-4),
+    -- ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- default mapping
+    ['<C-P>'] = cmp.mapping.scroll_docs(4),
+    -- ['<C-f>'] = cmp.mapping.scroll_docs(4), -- default mapping
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<C-y>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -423,8 +487,14 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
+    { name = 'nvim_lsp_signature_help' }
   },
 }
+
+vim.cmd [[colorscheme tokyonight]]
+-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = "DarkBlue" })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

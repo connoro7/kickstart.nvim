@@ -4,6 +4,7 @@ vim.keymap.set("n", "<leader>F", ":Format<CR>", { noremap = true, silent = false
 return {
   -- 'mhartington/formatter.nvim',
   -- util = require("formatter.util"),
+  -- cmd = { "Format", "FormatWhatever" }
   -- config = function()
   --   require("formatter").setup({
   --     -- Enable or disable logging
@@ -45,7 +46,7 @@ return {
   --         require("formatter.filetypes.sh").shfmt,
   --       },
   --       python = {
-  --         require("formatter.filetypes.python").black,
+  --         require("formatter.filetypes.python").ruff,
   --       },
   --       javascript = {
   --         require("formatter.filetypes.javascript").prettier,
