@@ -199,7 +199,7 @@ vim.keymap.set("n", "<leader>pwd", "<cmd>echo expand('%:p')<CR>", {
 -- usage: run current file
 vim.keymap.set("n", "<leader>pyr", "<cmd>!python %<CR>", { desc = '[py]thon [r]un current buffer' });
 -- usage: :PyrightOrganizeImports
-vim.keymap.set("n", "<leader>POI", "<cmd>PyrightOrganizeImports<CR>", { desc = '[P]yright [O]rganize [I]mports' });
+vim.keymap.set("n", "<leader>poi", "<cmd>PyrightOrganizeImports<CR>", { desc = '[P]yright [O]rganize [I]mports' });
 
 -- Formatting
 -- usage: in normal mode, <leader>w to toggle line wrapping
@@ -212,6 +212,7 @@ vim.keymap.set(
 	{ desc = "Underline context at top of screen" }
 )
 
+vim.keymap.set("n", "<leader>msg", "<cmd>messages<CR>", { desc = "Show command [m]e[s]sa[g]es" })
 -- Plugins, Packages
 -- vim.keymap.set("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/connor/packer.lua<CR>", { desc = '' });
 

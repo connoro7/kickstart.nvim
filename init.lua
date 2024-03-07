@@ -69,14 +69,14 @@ autocmd({ "BufWritePre" }, {
   command = [[%s/\s\+$//e]],
 })
 -- [[Format python files with black]]
-autocmd({ "BufWritePost" }, { -- Use BufWritePost to ensure file has been saved first
-  group = format_group,       -- then have black format the file and reload the file with
-  pattern = "*.py",           -- edit seems to be ideal. Save twice to save the formatting.
-  callback = function()
-    vim.cmd("silent !black --quiet %")
-    vim.cmd("redraw")
-  end,
-})
+-- autocmd({ "BufWritePost" }, { -- Use BufWritePost to ensure file has been saved first
+--   group = format_group,       -- then have black format the file and reload the file with
+--   pattern = "*.py",           -- edit seems to be ideal.
+--   callback = function()
+--     vim.cmd("silent !black --quiet %")
+--     vim.cmd("redraw")
+--   end,
+-- })
 -- [[Format after saving]]
 -- autocmd({ "BufWritePost" }, {
 --   group = format_group,
@@ -377,7 +377,6 @@ local servers = {
   rust_analyzer = {},
   tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
