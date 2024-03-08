@@ -60,6 +60,13 @@ vim.keymap.set('n', '<leader>vq', vim.diagnostic.setloclist, { desc = 'Open diag
 
 
 -- [[Autocommands]]
+-- [[Autocmd Settings]]
+local settings_group = augroup("Settings", {})
+autocmd({ "BufWinEnter" }, {
+  group = settings_group,
+  pattern = "*.*",
+  command = [[set foldmethod=manual]],
+})
 -- [[Autocmd Formatting]]
 local format_group = augroup("Format", {})
 -- [[Remove trailing whitespace before saving]]
