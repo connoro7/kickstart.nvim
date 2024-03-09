@@ -59,13 +59,13 @@ return {
       {
         "<leader>ccv",
         ":CopilotChatVisual ",
-        mode = "x",
+        mode = "v",
         desc = "Open in vertical split",
       },
       {
         "<leader>ccx",
         ":CopilotChatInPlace<cr>",
-        mode = "x",
+        mode = "v",
         desc = "Run in-place code",
       },
       {
