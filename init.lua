@@ -103,6 +103,16 @@ autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+-- [[ Autocmd Copilot ]]
+-- local copilot_group = vim.api.nvim_create_augroup('Copilot', { clear = true })
+-- add b:copilot_workspace_folders to the buffer on BufWinEnter from ~/dev/scale-qe/*.* files
+-- autocmd('BufWinEnter', {
+--   callback = function()
+--     vim.cmd("let b:copilot_workspace_folders = {'~/dev/scale-qe'}")
+--   end,
+--   group = copilot_group,
+--   pattern = '/home/cdillon/dev/scale-qe/*',
+-- })
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -313,6 +323,18 @@ local on_attach = function(_, bufnr)
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
+  nmap('<leader>cwf', function()
+    -- [[BROKEN]]
+    local workspaceFolders = vim.lsp.buf.list_workspace_folders()
+    -- Check if workspaceFolders is not nil before inspecting
+    if workspaceFolders then
+      local workspaceFoldersStr = vim.inspect(workspaceFolders)
+      workspaceFoldersStr = workspaceFoldersStr:gsub('([%^%$%(%)%%%.%[%]*%+%-%?])', '%%%1')
+      vim.cmd("let g:copilot_workspace_folders = " .. workspaceFoldersStr)
+    else
+      print("No workspace folders found.")
+    end
+  end, 'Copilot [W]orkspace [F]older')
 
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)

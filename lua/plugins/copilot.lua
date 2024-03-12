@@ -9,7 +9,9 @@ return {
     vim.keymap.set("n", "<leader>cpe", "<cmd>Copilot enable<CR>");
     vim.keymap.set("n", "<leader>cpd", "<cmd>Copilot disable<CR>");
     -- vim.cmd("let g:copilot_filetypes = {'*': v:false}") -- disable permanently
-    vim.cmd("Copilot disable") -- disable on startup
+    -- vim.cmd([[let g:copilot_workspace_folders = {'~/dev/scale-qe'}]])
+    -- vim.cmd(":echo keys(copilot#Agent().workspaceFolders)")
+    -- vim.cmd("Copilot disable") -- disable on startup
   end,
 }
 

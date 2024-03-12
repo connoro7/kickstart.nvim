@@ -47,10 +47,10 @@ return {
     -- end,
     keys = {
       { "<leader>ccb", ":CopilotChatBuffer ",          desc = "Buffer chat" },
-      { "<leader>cce", "<cmd>CopilotChatExplain<cr>",  desc = "Explain" },
-      { "<leader>ccr", "<cmd>CopilotChatReview<cr>",   desc = "Review" },
-      { "<leader>ccR", "<cmd>CopilotChatRefactor<cr>", desc = "Refactor" },
-      { "<leader>cct", "<cmd>CopilotChatTests<cr>",    desc = "Tests" },
+      { "<leader>cce", "<cmd>CopilotChatExplain<cr>",  mode = "v",          desc = "Explain" },
+      { "<leader>ccr", "<cmd>CopilotChatReview<cr>",   mode = "v",          desc = "Review" },
+      { "<leader>ccR", "<cmd>CopilotChatRefactor<cr>", mode = "v",          desc = "Refactor" },
+      { "<leader>cct", "<cmd>CopilotChatTests<cr>",    mode = "v",          desc = "Tests" },
       {
         "<leader>ccT",
         "<cmd>CopilotChatVsplitToggle<cr>",
