@@ -14,8 +14,8 @@ return {
       prompts = {
         Explain = "Explain how it works.",
         Review = "Review the following code and provide concise suggestions.",
-        Tests = "Briefly explain how the selected code works, then generate unit tests.",
         Refactor = "Refactor the code to improve clarity, readability, and robustness.",
+        Tests = "Briefly explain how the selected code works, then generate unit tests.",
       },
       -- language = "English",      -- Copilot answer language settings when using default prompts. Default language is English.
       -- proxy = "socks5://127.0.0.1:3000", -- Proxies requests via https or socks.
@@ -47,7 +47,7 @@ return {
     -- end,
     keys = {
       { "<leader>ccb", ":CopilotChatBuffer ",          desc = "Buffer chat" },
-      { "<leader>cce", "<cmd>CopilotChatExplain<cr>",  mode = "v",          desc = "Explain" },
+      { "<leader>cce", "<cmd>CopilotChatExplain<cr>",  desc = "Explain" },
       { "<leader>ccr", "<cmd>CopilotChatReview<cr>",   mode = "v",          desc = "Review" },
       { "<leader>ccR", "<cmd>CopilotChatRefactor<cr>", mode = "v",          desc = "Refactor" },
       { "<leader>cct", "<cmd>CopilotChatTests<cr>",    mode = "v",          desc = "Tests" },

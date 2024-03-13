@@ -211,6 +211,13 @@ vim.keymap.set(
 	"<cmd>hi TreesitterContextBottom gui=underline guisp=Grey<CR>",
 	{ desc = "Underline context at top of screen" }
 )
+-- set filetype=bash
+vim.keymap.set(
+	"n",
+	"<leader>bsh",
+	"<cmd>set filetype=bash<CR>",
+	{ desc = "set filetype=[b]a[sh]" }
+)
 
 vim.keymap.set("n", "<leader>msg", "<cmd>messages<CR>", { desc = "Show command [m]e[s]sa[g]es" })
 -- Plugins, Packages
