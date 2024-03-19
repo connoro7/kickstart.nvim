@@ -380,8 +380,41 @@ local servers = {
   -- AVAILABLE SERVERS & THEIR NAMES: https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
   bashls = {},
   clangd = {},
+  rust_analyzer = {},
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
+  -- tsserver = {},
   -- gopls = {},
+  -- basedpyright = {
+  --   settings = {
+  --     disableOrganizeImports = true,
+  --     basedpyright = {
+  --       analysis = {
+  --       }
+  --     }
+  --   }
+  -- },
+  pyright = {
+    -- enabled = false,
+    settings = { -- see Microsoft's Pyright settings documentation: https://github.com/microsoft/pyright/blob/main/docs/settings.md
+      pyright = {
+        autoImportCompletion = true,
+        -- disableOrganizeImports = true, -- set to true to use Ruff's import organizer
+      },
+      python = {
+        analysis = {
+          typeCheckingMode = "strict",   -- "off" | "basic" | "strict"
+          autoSearchPaths = true,        -- set to true to use Ruff's import organizer
+          useLibraryCodeForTypes = true, -- set to true to use Ruff's import organizer
+          diagnosticMode = "workspace",  -- "openFilesOnly" | "workspace"
+          indexing = true,               --
+          -- indexing = { exclude = { "build", "dist", "env", ".venv", ".git", ".tox", ".mypy_cache", ".pytest_cache" } },
+          -- ignore = { '*' } -- ignore all files for analysis to exclusively use Ruff for linting, not formatting
+        }
+      }
+    },
+  },
   ruff_lsp = {
+    -- enabled = false,
     cmd = { 'ruff-lsp' },
     filetypes = { 'python' },
     settings = { -- see: https://github.com/astral-sh/ruff-lsp?tab=readme-ov-file#settings
@@ -390,22 +423,6 @@ local servers = {
     },
     single_file_support = true
   },
-  pyright = {
-    settings = { -- see Microsoft's Pyright settings documentation: https://github.com/microsoft/pyright/blob/main/docs/settings.md
-      pyright = {
-        autoImportCompletion = true,
-        -- disableOrganizeImports = true, -- set to true to use Ruff's import organizer
-      },
-      python = {
-        analysis = {
-          -- ignore = { '*' } -- ignore all files for analysis to exclusively use Ruff for linting, not formatting
-        }
-      }
-    },
-  },
-  rust_analyzer = {},
-  tsserver = {},
-  html = { filetypes = { 'html', 'twig', 'hbs' } },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -523,6 +540,8 @@ vim.cmd [[colorscheme tokyonight]]
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "DarkBlue" })
+-- Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, Brown, DarkYellow
+-- LightGray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
