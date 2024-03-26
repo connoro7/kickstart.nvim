@@ -379,11 +379,39 @@ local servers = {
   -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
   -- AVAILABLE SERVERS & THEIR NAMES: https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
   bashls = {},
-  clangd = {},
+  clangd = {
+    cmd = {
+      "clangd",
+      -- "--all-scopes-completion",
+      -- "--suggest-missing-includes",
+      -- "--background-index",
+      -- "--pch-storage=disk",
+      -- "--cross-file-rename",
+      -- "--log=info",
+      -- "--completion-style=detailed",
+      -- "--enable-config", -- clangd 11+ supports reading from .clangd configuration file
+      -- "--clang-tidy",
+      "--offset-encoding=utf-16",
+      -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
+      -- "--fallback-style=Google",
+      -- "--header-insertion=never",
+      -- "--query-driver=<list-of-white-listed-complers>"
+    },
+  },
   rust_analyzer = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
   -- tsserver = {},
-  -- gopls = {},
+  -- gopls = {
+  --   hints = {
+  --     assignVariableTypes = true,
+  --     compositeLiteralFields = true,
+  --     compositeLiteralTypes = true,
+  --     constantValues = true,
+  --     functionTypeParameters = true,
+  --     parameterNames = true,
+  --     rangeVariableTypes = true,
+  --   },
+  -- },
   -- basedpyright = {
   --   settings = {
   --     disableOrganizeImports = true,
@@ -475,6 +503,7 @@ mason_lspconfig.setup_handlers {
       on_attach = on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
+      cmd = (servers[server_name] or {}).cmd,
     }
   end,
 }
