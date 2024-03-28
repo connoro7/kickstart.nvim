@@ -384,13 +384,14 @@ local servers = {
       "clangd",
       -- "--all-scopes-completion",
       -- "--suggest-missing-includes",
-      -- "--background-index",
+      "--background-index",
       -- "--pch-storage=disk",
       -- "--cross-file-rename",
       -- "--log=info",
       -- "--completion-style=detailed",
-      -- "--enable-config", -- clangd 11+ supports reading from .clangd configuration file
+      "--enable-config", -- clangd 11+ supports reading from .clangd configuration file
       -- "--clang-tidy",
+      "--style='file:/home/cdillon/dev/scqad/.clang-format'",
       "--offset-encoding=utf-16",
       -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
       -- "--fallback-style=Google",
