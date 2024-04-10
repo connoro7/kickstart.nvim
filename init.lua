@@ -58,6 +58,20 @@ vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float,
   { desc = 'Open [v]im [d]iagnostic message' })
 vim.keymap.set('n', '<leader>vq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+-- [[ Custom Commands ]]
+
+local nvim_cmd = vim.api.nvim_command
+-- See `:help vim.api.nvim_command()`
+-- [[ Align Columns ]]
+nvim_cmd("command! -range=% Align <line1>,<line2>!column -t")
+-- [[ Open Terminal ]]
+-- nvim_cmd("command! -nargs=* -complete=shellcmd Term :Term <args>")
+-- [[ Print result of bash command ]]
+nvim_cmd("command! -nargs=* -complete=shellcmd Bash :echo system(<q-args>)")
+-- [[ Insert result of bash command at cursor ]]
+-- nvim_cmd("command! -nargs=* -complete=shellcmd BashInsert :put=system(\"<q-args>\")")
+-- [[ Insert result of find at cursor ]]
+-- nvim_cmd("command! -nargs=* -complete=shellcmd FindInsert :put system(\"find . -name '<q-args>'\")")
 
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
@@ -74,6 +88,12 @@ autocmd({ "BufWritePre" }, {
   group = format_group,
   pattern = "*",
   command = [[%s/\s\+$//e]],
+})
+-- [[ Format .cpp and .h files with clang-format on save ]]
+autocmd({ "BufWritePost" }, {
+  group = format_group,
+  pattern = "*.cpp,*.h",
+  command = [[silent !clang-format -i %]],
 })
 -- [[Format python files with black]]
 -- autocmd({ "BufWritePost" }, { -- Use BufWritePost to ensure file has been saved first
