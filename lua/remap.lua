@@ -1,18 +1,18 @@
--- Useful help docs:
+-- [[ Useful help docs ]]
 -- :h keycodes - list of all keycodes
 -- :h index - list of all commands
 -- :h map-modes - list of all modes
---
--- vim.g.mapleader = " " -- Relocated to ./set.lua
 
--- File Explorer
---vim.keymap.set("n", "<leader>pv", vim.cmd.Ex) -- For default netrw
-vim.keymap.set("n", "<leader>pv", vim.cmd.NvimTreeOpen, { desc = "Open NvimTree" }) -- When using nvimtree file explorer
-vim.keymap.set("n", "<leader>fx", vim.cmd.NvimTreeClose, { desc = "Close NvimTree" })
+local keymap = vim.keymap.set
 
--- Buffers, registers
-vim.keymap.set("n", "<leader>r", ":reg<CR>", { desc = "Show registers" })
-vim.keymap.set("n", "<leader>ls", ":ls<CR>", { desc = "Show buffers" })
+-- [[ File Explorer ]]
+--keymap("n", "<leader>pv", vim.cmd.Ex) -- For default netrw
+keymap("n", "<leader>pv", vim.cmd.NvimTreeOpen, { desc = "Open NvimTree" }) -- When using nvimtree file explorer
+keymap("n", "<leader>fx", vim.cmd.NvimTreeClose, { desc = "Close NvimTree" })
+
+-- [[ Buffers, registers ]]
+keymap("n", "<leader>r", ":reg<CR>", { desc = "Show registers" })
+keymap("n", "<leader>ls", ":ls<CR>", { desc = "Show buffers" })
 -- :h buffer for more info
 -- :#b to go to buffer by buffer number
 -- :#sb to go to buffer by buffer number with split
@@ -20,97 +20,100 @@ vim.keymap.set("n", "<leader>ls", ":ls<CR>", { desc = "Show buffers" })
 -- :#unh or #sun to show N buffers, N is max number of buffers to show
 --
 
--- Modes
--- Make ctrl-c work the same everywhere.
-vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Make ctrl-c work the same everywhere" })
+-- [[ Modes ]]
+-- [[ Make ctrl-c work the same everywhere. ]]
+keymap("i", "<C-c>", "<Esc>", { desc = "Make ctrl-c work the same everywhere" })
 
--- Move, Jump
--- usage: in normal mode, <Home> and <End> to jump to start/end of line
-vim.keymap.set({ "n", "v" }, "<Home>", "^", { desc = "Jump to start of line" })
-vim.keymap.set({ "n", "v" }, "<End>", "$", { desc = "Jump to end of line" })
--- usage: in normal mode, "n" and "N" to jump to next/prev selection while cursor stays in middle of screen
-vim.keymap.set("n", "n", "nzzzv", { desc = "Jump to next selection, but cursor stays in middle of screen" })
-vim.keymap.set("n", "N", "Nzzzv", { desc = "Jump to prev selection, but cursor stays in middle of screen" })
--- usage: in normal mode, <PageDown> and <PageUp> to half-page jump up and down the file
-vim.keymap.set("n", "<PageDown>", "<C-d>zz", { desc = "Jump down half a page, cursor stays in middle of screen" })
-vim.keymap.set("n", "<PageUp>", "<C-u>zz", { desc = "Jump up half a page, cursor stays in middle of screen" })
+-- [[ Move, Jump ]]
+-- [[ Jump to start/end of line ]]
+keymap({ "n", "v" }, "<Home>", "^", { desc = "Jump to start of line" })
+keymap({ "n", "v" }, "<End>", "$", { desc = "Jump to end of line" })
+-- [[ jump to next/prev selection while cursor stays in middle of screen ]]
+keymap("n", "n", "nzzzv", { desc = "Jump to next selection, but cursor stays in middle of screen" })
+keymap("n", "N", "Nzzzv", { desc = "Jump to prev selection, but cursor stays in middle of screen" })
+-- [[ half-page jump up and down the file ]]
+keymap("n", "<PageDown>", "<C-d>zz", { desc = "Jump down half a page, cursor stays in middle of screen" })
+keymap("n", "<PageUp>", "<C-u>zz", { desc = "Jump up half a page, cursor stays in middle of screen" })
 
--- Undo, Redo
-vim.keymap.set("n", "U", "<C-r>", { desc = "Redo with U" })
+-- [[ Undo, Redo ]]
+keymap("n", "U", "<C-r>", { desc = "Redo with U" })
 
--- Yank, Paste
--- usage: yank to "+" register, i.e. system clipboard,
+-- [[ Yank, Paste ]]
+-- [[ yank to "+" register, i.e. system clipboard, ]]
 -- Allows usage of <Cmd+v> pasting both inside and outside of Vim
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
-vim.keymap.set("n", "<leader>Yl", [["+Y]], { desc = "Yank line to system clipboard" })
-vim.keymap.set("n", "<leader>Yg", [[gg"+yG]], { desc = "Yank line to system clipboard" })
--- usage: in normal mode, <leader>iy to yank inside current word
-vim.keymap.set("n", "<leader>iy", "viwy", { desc = "Yank inside current word" })
--- usage: in normal mode, <leader>ip to overwrite-paste inside current word
-vim.keymap.set("n", "<leader>ip", "viwP", { desc = "Paste inside current word, overwriting inside current word" })
--- usage: paste from void register, so that pasting over highlighted text won't add highlighted text to yank register
-vim.keymap.set("x", "<leader>P", [["_dP]], {
+keymap({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
+keymap("n", "<leader>Yl", [["+Y]], { desc = "Yank line to system clipboard" })
+keymap("n", "<leader>Yg", [[gg"+yG]], { desc = "Yank buffer to system clipboard" })
+-- [[ yank inside current word ]]
+keymap("n", "<leader>iy", "viwy", { desc = "Yank inside current word" })
+-- [[ overwrite-paste inside current word ]]
+keymap("n", "<leader>ip", "viwP", { desc = "Paste inside current word, overwriting inside current word" })
+-- [[ paste from void register, so that pasting over highlighted text won't add highlighted text to yank register ]]
+keymap("x", "<leader>P", [["_dP]], {
 	desc =
 	"Paste from void register, so that pasting over highlighted text won't add highlighted text to yank register",
 })
 
--- Delete
--- usage: delete to void register
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to void register" })
--- usage: Make <CR> perform <ciw> in normal mode
-vim.keymap.set("n", "<CR>", "ciw", { desc = "Change inner word on cursor with just <Enter>" })
--- usage: remap delete previous word from <C-w> to <C-d> in insert mode
-vim.keymap.set("i", "<C-d>", "<C-w>", { desc = "Delete previous word" })
+-- [[ Delete ]]
+-- [[ delete to void register ]]
+keymap({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to void register" })
+-- [[ Make <CR> perform <ciw> in normal mode ]]
+keymap("n", "<CR>", "ciw", { desc = "Change inner word on cursor with just <Enter>" })
+-- [[ remap delete previous word from <C-w> to <C-d> in insert mode ]]
+keymap("i", "<C-d>", "<C-w>", { desc = "Delete previous word" })
 
--- Folds, Folding
+-- [[ Folds, Folding ]]
 -- usage: find next curly brace, then fold under cursor
-vim.keymap.set({ "n", "v" }, "<leader>zf", "hf{zfa{", { desc = "Fold under cursor" })
+keymap({ "n", "v" }, "<leader>zf", "hf{zfa{", { desc = "Fold under cursor" })
 -- zf/<string> folds from cursor to string
 -- zj, zk moves cursor to next/prev folds
 -- zo, z0 opens one/all folds at cursor
 -- zm, zM increases fold level by one/all
 -- zr, zR decreases fold level by one/all
+-- [[ Select ]]
+keymap("n", "<leader>sa", "ggVG", { desc = "[S]elect [a]ll" })
+keymap("n", "<leader>vf", "va{V", { desc = "[V]isual [f]unction" })
 
--- Edit Selection
-vim.keymap.set("v", "+", "<C-a>", { desc = "Increment selection" })
-vim.keymap.set("v", "-", "<C-x>", { desc = "Decrement selection" })
+-- [[ Edit Selection ]]
+keymap("v", "+", "<C-a>", { desc = "Increment selection" })
+keymap("v", "-", "<C-x>", { desc = "Decrement selection" })
 -- Usage: In Normal Mode, <Leader>f To format text
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format text" })
+keymap("n", "<leader>f", vim.lsp.buf.format, { desc = "Format text" })
 -- usage: in visual mode, use "J" and "K" to swap selected lines up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
+keymap("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
+keymap("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
 -- usage: append line below to current line, separated by a space
-vim.keymap.set("n", "J", "mzJ`z", { desc = "Append line below to current line" })
+keymap("n", "J", "mzJ`z", { desc = "Append line below to current line" })
 -- usage: in normal mode, <leader>S for instant regex match
-vim.keymap.set("n", "<leader>S", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/I<Left><Left>]], { desc = "Replace under cursor." })
--- usage: in visual mode, <leader>ss for regex match across entire line
-vim.keymap.set("v", "<leader>ss", [[:s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace across line." })
+keymap("n", "<leader>S", [[:s/\<<C-r><C-w>\>/<C-r><C-w>/I<Left><Left>]], { desc = "Replace under cursor." })
 -- usage: <leader>SS for global regex match
-vim.keymap.set("n", "<leader>SS", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+keymap("n", "<leader>SS", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
 	{ desc = "Replace across buffer." })
--- usage: in visual mode, <leader>vs for match across selection
-vim.keymap.set("v", "<leader>vs", [[:s/\%V//gI<Left><Left><Left><Left>]],
+-- usage: in visual mode, <leader>ss for regex match across entire line
+keymap("v", "<leader>ss", [[:s/<C-r><C-w>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace across line." })
+-- [[ match across selection ]]
+keymap("v", "<leader>vs", [[:s/\%V//gI<Left><Left><Left><Left>]],
 	{ desc = "Replace across current selection." })
--- usage: in normal or visual mode, <leader>bs to replace at start of line
-vim.keymap.set({ "n", "v" }, "<leader>bs", [[:s/^//<Left>]], { desc = "Replace at start of current line" })
--- usage: in visual mode, gat to title-case current selection
-vim.keymap.set("v", "gat", ":s/\\<./\\u&/g<CR>:noh<CR>", { desc = "Title-case selection" })
--- usage: in visual mode, swap text around equal sign with /\([^=]*\)\s\+=\s\+\([^;]*\)/\2 = \1
+-- [[ replace at start of line ]]
+keymap({ "n", "v" }, "<leader>bs", [[:s/^//<Left>]], { desc = "Replace at start of current line" })
+-- [[ gat to title-case current selection ]]
+keymap("v", "gat", ":s/\\<./\\u&/g<CR>:noh<CR>", { desc = "Title-case selection" })
+-- [[ swap text around equal sign ]]
 -- and also be sure to ignore punctuation, ,.?! etc
-vim.keymap.set(
+keymap(
 	"v",
 	"s=",
 	[[:s/\(['"]\{,1}\w\+['"]\{,1}\)\([^=]*\)\s\+=\s\+\([^;,]*\)/\3 = \1<CR>:noh<CR>]],
 	-- [[:s/\(\w\+\)\(\s\+\([=<>!~]\{1,3\}\)\s\+\)\(\w\+\)/\3 \1 \4<CR>:noh<CR>]], -- WIP: trying to add additional operators
 	{
-		desc = "Swap text around equality operator",
+		desc = "[S]wap text around [=] sign",
 	}
 )
-
-vim.keymap.set("v", "s:", [[:s/\(['"]\{,1}\w\+['"]\{,1}\)\([:$]\)\s\+\([^;,]*\)/\3: \1<CR>:noh<CR>]], {
-	desc = "Swap text around colon",
+-- [[ Swap text around colon ]]
+keymap("v", "s:", [[:s/\(['"]\{,1}\w\+['"]\{,1}\)\([:$]\)\s\+\([^;,]*\)/\3: \1<CR>:noh<CR>]], {
+	desc = "Swap text around : sign",
 })
--- vim.keymap.set("v", "<leader>s=", function()
+-- keymap("v", "<leader>s=", function()
 -- 	vim.cmd('noau normal! Vgv"vy')
 -- 	local selected_text = vim.fn.getreg("v")
 -- 	local symbol = selected_text:match("[=<>!~:]+")
@@ -151,69 +154,57 @@ vim.keymap.set("v", "s:", [[:s/\(['"]\{,1}\w\+['"]\{,1}\)\([:$]\)\s\+\([^;,]*\)/
 -- 	desc = "Swap text around equality operator",
 -- })
 
--- Window Management
--- usage: in normal mode, sf to split window horizontally
-vim.keymap.set("n", "sv", "<C-w>s", { desc = "Split window horizontally" })
--- usage: in normal mode, sv to split window vertically
-vim.keymap.set("n", "sf", "<C-w>v", { desc = "Split window vertically" })
--- usage: in normal mode, <leader>hjkl to move between windows
-vim.keymap.set("n", "<leader>hh", "<C-w>h", { desc = "Move to window left" })
-vim.keymap.set("n", "<leader>jj", "<C-w>j", { desc = "Move to window below" })
-vim.keymap.set("n", "<leader>kk", "<C-w>k", { desc = "Move to window above" })
-vim.keymap.set("n", "<leader>ll", "<C-w>l", { desc = "Move to window right" })
--- usage: in normal mode, ss to move to next window
-vim.keymap.set("n", "ss", "<C-w>w", { desc = "Move to next window" })
--- usage: in normal mode, ws to close current window
-vim.keymap.set("n", "sx", "<C-w>c", { desc = "Close current window" })
--- usage: go to previous buffer
-vim.keymap.set("n", "<leader>bb", "<C-^>", { desc = "Go back to previous buffer" })
-vim.keymap.set("n", "<leader>bn", ":0bn<CR>", { desc = "Go to next buffer in buffer list" })
-vim.keymap.set("n", "<leader>bp", ":0bp<CR>", { desc = "Go to previous buffer in buffer list" })
-vim.keymap.set("n", "<leader>bj", function()
+-- [[ Window Management ]]
+-- [[ split window horizontally ]]
+keymap("n", "sv", "<C-w>s", { desc = "Split window horizontally" })
+-- [[ split window vertically ]]
+keymap("n", "sf", "<C-w>v", { desc = "Split window vertically" })
+-- [[ move between windows ]]
+keymap("n", "<leader>hh", "<C-w>h", { desc = "Move to window left" })
+keymap("n", "<leader>jj", "<C-w>j", { desc = "Move to window below" })
+keymap("n", "<leader>kk", "<C-w>k", { desc = "Move to window above" })
+keymap("n", "<leader>ll", "<C-w>l", { desc = "Move to window right" })
+-- [[ move to next window ]]
+keymap("n", "ss", "<C-w>w", { desc = "Move to next window" })
+-- [[ close current window ]]
+keymap("n", "sx", "<C-w>c", { desc = "Close current window" })
+-- [[ go to previous buffer ]]
+keymap("n", "<leader>bb", "<C-^>", { desc = "Go back to previous buffer" })
+keymap("n", "<leader>bn", ":0bn<CR>", { desc = "Go to next buffer in buffer list" })
+keymap("n", "<leader>bp", ":0bp<CR>", { desc = "Go to previous buffer in buffer list" })
+keymap("n", "<leader>bj", function()
 	local count = vim.v.count1
 	vim.cmd(count .. "bn")
 end, { desc = "Jump to next N buffer, prepend command with N." })
-vim.keymap.set("n", "<leader>bun", function()
+keymap("n", "<leader>bun", function()
 	local count = vim.v.count1
 	vim.cmd(count .. "unh")
 end, { desc = "Unhide N buffers, prepend command with N." })
--- usage: new tmux session, silently
--- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux new tmux-sessionizer<CR>", {desc = 'New tmux session, silently'})
+-- [[ new tmux session, silently ]]
+-- keymap("n", "<C-f>", "<cmd>silent !tmux new tmux-sessionizer<CR>", {desc = 'New tmux session, silently'})
 
--- usage: quick fix navigation
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Quickfix next" })
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Quickfix prev" })
-vim.keymap.set("n", "<leader>K", "<cmd>lnext<CR>zz", { desc = "Quickfix next" })
-vim.keymap.set("n", "<leader>J", "<cmd>lprev<CR>zz", { desc = "Quickfix prev" })
+-- [[ quick fix navigation ]]
+keymap("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Quickfix next" })
+keymap("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Quickfix prev" })
+keymap("n", "<leader>K", "<cmd>lnext<CR>zz", { desc = "Quickfix next" })
+keymap("n", "<leader>J", "<cmd>lprev<CR>zz", { desc = "Quickfix prev" })
 
--- Bash Commands
--- usage: Silently make current file executable
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", {
+-- [[ Commands ]]
+-- [[ Silently make current file executable ]]
+keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", {
 	silent = true,
 	desc = "Make current file executable",
 })
--- usage: Show current file's path
-vim.keymap.set("n", "<leader>pwd", "<cmd>echo expand('%:p')<CR>", {
+-- [[ Show current file's path ]]
+keymap("n", "<leader>pwd", "<cmd>echo expand('%:p')<CR>", {
 	silent = true,
 	desc = "Print working directory",
 })
--- usage: run current file
-vim.keymap.set("n", "<leader>pyr", "<cmd>!python %<CR>", { desc = '[py]thon [r]un current buffer' });
--- usage: :PyrightOrganizeImports
-vim.keymap.set("n", "<leader>poi", "<cmd>PyrightOrganizeImports<CR>", { desc = '[P]yright [O]rganize [I]mports' });
-
--- Formatting
--- usage: in normal mode, <leader>w to toggle line wrapping
-vim.keymap.set("n", "<leader>w", "<cmd>set wrap!<CR>", { desc = "Toggle line wrapping" })
-
-vim.keymap.set(
-	"n",
-	"<leader>flt",
-	"<cmd>hi TreesitterContextBottom gui=underline guisp=Grey<CR>",
-	{ desc = "Underline context at top of screen" }
-)
-
--- [[ Set filetype to passed in arg ]]
+-- [[ run current file ]]
+keymap("n", "<leader>pyr", "<cmd>!python %<CR>", { desc = '[py]thon [r]un current buffer' });
+-- [[ Organize Python Imports ]]
+keymap("n", "<leader>poi", "<cmd>PyrightOrganizeImports<CR>", { desc = '[P]yright [O]rganize [I]mports' });
+-- [[ Set filetype of current buffer ]]
 vim.cmd([[
 function! SetFileType(filetype)
     execute "set filetype=" . a:filetype
@@ -221,20 +212,36 @@ endfunction
 
 command! -nargs=1 SetFiletype call SetFileType(<f-args>)
 ]])
-vim.keymap.set("n", "<leader>ext", ":SetFiletype ", { noremap = true, desc = "set filetype=[ext]" })
+keymap("n", "<leader>ft", ":SetFiletype ", { noremap = true, desc = "set filetype=[ext]" })
+-- [[ Run command on current line ]]
+vim.keymap.set('n', "<leader>xr", [["xdd@x]], { desc = 'Run command under cursor' })
+keymap("n", "<leader>xFR", [[:%!find .]], { desc = "Replace buffer with ls of cwd at cursor" })
+keymap("n", "<leader>xFP", [[:.!find .]], { desc = "Paste ls of cwd at cursor" })
 
--- usage: in normal mode, <leader>msg to show command messages
-vim.keymap.set("n", "<leader>msg", "<cmd>messages<CR>", { desc = "Show command [m]e[s]sa[g]es" })
+-- Formatting
+-- [[ <leader>w to toggle line wrapping ]]
+keymap("n", "<leader>w", "<cmd>set wrap!<CR>", { desc = "Toggle line wrapping" })
+
+keymap(
+	"n",
+	"<leader>flt",
+	"<cmd>hi TreesitterContextBottom gui=underline guisp=Grey<CR>",
+	{ desc = "Underline context at top of screen" }
+)
+
+
+-- [[ show command messages ]]
+keymap("n", "<leader>msg", "<cmd>messages<CR>", { desc = "Show command [m]e[s]sa[g]es" })
 
 -- [[ Plugins, Packages, Misc. ]]
--- vim.keymap.set("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/connor/packer.lua<CR>", { desc = '' });
+-- keymap("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/connor/packer.lua<CR>", { desc = '' });
 
--- Cellular Automaton
--- vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = 'Make it rain prank' });
--- vim.keymap.set("n", "<leader>sr", "<cmd>CellularAutomaton scramble<CR>", { desc = 'Scramble prank' });
--- vim.keymap.set("n", "<leader>gr", "<cmd>CellularAutomaton game_of_life<CR>", { desc = 'Conway\'s Game of Life prank' });
+-- [[ Cellular Automaton ]]
+-- keymap("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", { desc = 'Make it rain prank' });
+-- keymap("n", "<leader>sr", "<cmd>CellularAutomaton scramble<CR>", { desc = 'Scramble prank' });
+-- keymap("n", "<leader>gr", "<cmd>CellularAutomaton game_of_life<CR>", { desc = 'Conway\'s Game of Life prank' });
 
--- usage: Unset the things that suck
-vim.keymap.set("n", "Q", "<nop>", { desc = "Unset Q" })
-vim.keymap.set("n", "<C-b>", "<nop>", { desc = "Unset <C-b>" })
--- vim.keymap.set("n", "<C-h>", "<nop>", { desc = 'Unset <C-h>' })
+-- [[ Unset the things that suck ]]
+keymap("n", "Q", "<nop>", { desc = "Unset Q" })
+keymap("n", "<C-b>", "<nop>", { desc = "Unset <C-b>" })
+-- keymap("n", "<C-h>", "<nop>", { desc = 'Unset <C-h>' })
