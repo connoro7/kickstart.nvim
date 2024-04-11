@@ -50,7 +50,8 @@ vim.keymap.set("n", "<leader>iy", "viwy", { desc = "Yank inside current word" })
 vim.keymap.set("n", "<leader>ip", "viwP", { desc = "Paste inside current word, overwriting inside current word" })
 -- usage: paste from void register, so that pasting over highlighted text won't add highlighted text to yank register
 vim.keymap.set("x", "<leader>P", [["_dP]], {
-	desc = "Paste from void register, so that pasting over highlighted text won't add highlighted text to yank register",
+	desc =
+	"Paste from void register, so that pasting over highlighted text won't add highlighted text to yank register",
 })
 
 -- Delete
@@ -211,16 +212,21 @@ vim.keymap.set(
 	"<cmd>hi TreesitterContextBottom gui=underline guisp=Grey<CR>",
 	{ desc = "Underline context at top of screen" }
 )
--- set filetype=bash
-vim.keymap.set(
-	"n",
-	"<leader>bsh",
-	"<cmd>set filetype=bash<CR>",
-	{ desc = "set filetype=[b]a[sh]" }
-)
 
+-- [[ Set filetype to passed in arg ]]
+vim.cmd([[
+function! SetFileType(filetype)
+    execute "set filetype=" . a:filetype
+endfunction
+
+command! -nargs=1 SetFiletype call SetFileType(<f-args>)
+]])
+vim.keymap.set("n", "<leader>ext", ":SetFiletype ", { noremap = true, desc = "set filetype=[ext]" })
+
+-- usage: in normal mode, <leader>msg to show command messages
 vim.keymap.set("n", "<leader>msg", "<cmd>messages<CR>", { desc = "Show command [m]e[s]sa[g]es" })
--- Plugins, Packages
+
+-- [[ Plugins, Packages, Misc. ]]
 -- vim.keymap.set("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/connor/packer.lua<CR>", { desc = '' });
 
 -- Cellular Automaton
