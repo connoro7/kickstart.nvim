@@ -73,6 +73,8 @@ keymap({ "n", "v" }, "<leader>zf", "hf{zfa{", { desc = "Fold under cursor" })
 -- [[ Select ]]
 keymap("n", "<leader>sa", "ggVG", { desc = "[S]elect [a]ll" })
 keymap("n", "<leader>vf", "va{V", { desc = "[V]isual [f]unction" })
+-- keymap("n", "<leader>vi", "vi{", { desc = "[V]isual [i]nside" })
+-- keymap("n", "<leader>vo", "vo{", { desc = "[V]isual [o]utside" })
 
 -- [[ Edit Selection ]]
 keymap("v", "+", "<C-a>", { desc = "Increment selection" })
