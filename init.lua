@@ -145,7 +145,9 @@ require('telescope').setup {
       },
     },
     file_ignore_patterns = {
-      "DC/sc*"
+      "DC/sc*",
+      "DC/net*",
+      "ui-paths/migration*"
     }
   },
 }
@@ -221,7 +223,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[s]earch [r]esume' })
 vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[s]earch [c]ommands ' })
 vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[s]earch [k]eymaps' })
-vim.keymap.set('n', '<leader>ti', require('telescope.builtin').lsp_implementations,
+vim.keymap.set('n', '<leader>si', require('telescope.builtin').lsp_implementations,
   { desc = '[t]elescope [i]mplementations' })
 vim.keymap.set('n', '<leader>ps', function()
   require('telescope.builtin').grep_string({
