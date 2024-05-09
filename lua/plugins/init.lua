@@ -185,8 +185,9 @@ return {
     },
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      after = "nvim-treesitter",
-      requires = "nvim-treesitter/nvim-treesitter",
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+      },
     },
     { "nvim-treesitter/playground" -- See: https://github.com/nvim-treesitter/playground
     },

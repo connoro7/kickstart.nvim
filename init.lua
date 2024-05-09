@@ -147,6 +147,7 @@ require('telescope').setup {
     file_ignore_patterns = {
       "DC/sc*",
       "DC/net*",
+      "poetry.lock*",
       "ui-paths/migration*"
     }
   },
@@ -421,7 +422,16 @@ local servers = {
       -- "--query-driver=<list-of-white-listed-complers>"
     },
   },
-  rust_analyzer = {},
+  rust_analyzer = {
+    -- settings = { -- see: https://github.com/rust-lang/rust-analyzer/blob/master/docs/user/generated_config.adoc
+    --   ['rust-analyzer'] = {
+    --     diagnostics = {
+    --       enable = false,
+    --       disabled = { "unresolved-proc-macro" },
+    --     },
+    --   }
+    -- }
+  },
   html = { filetypes = { 'html', 'twig', 'hbs' } },
   -- tsserver = {},
   -- gopls = {
@@ -459,18 +469,24 @@ local servers = {
           diagnosticMode = "workspace",  -- "openFilesOnly" | "workspace"
           indexing = true,               --
           -- indexing = { exclude = { "build", "dist", "env", ".venv", ".git", ".tox", ".mypy_cache", ".pytest_cache" } },
-          -- ignore = { '*' } -- ignore all files for analysis to exclusively use Ruff for linting, not formatting
+          ignore = { '*' }               -- ignore all files for analysis to exclusively use Ruff for linting, not formatting
         }
       }
     },
+  },
+  ruff = {
+    enabled = false,
   },
   ruff_lsp = {
     -- enabled = false,
     cmd = { 'ruff-lsp' },
     filetypes = { 'python' },
-    settings = { -- see: https://github.com/astral-sh/ruff-lsp?tab=readme-ov-file#settings
-      lint = { args = { "--line-length=99" } },
-      format = { args = { "--line-length=99" } },
+    init_options = {
+      settings = { -- see: https://github.com/astral-sh/ruff-lsp?tab=readme-ov-file#settings
+        args = { "--config " .. vim.loop.os_homedir() .. "/dev/scale-qe/pyproject.toml" },
+        lint = { args = { "--line-length=99" } },
+        format = { args = { "--line-length=99" } },
+      },
     },
     single_file_support = true
   },
@@ -502,34 +518,17 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    -- if server_name == 'ruff_lsp' then -- if server_name is ruff_lsp,
-    --   local ruff_on_attach = function(client, bufnr)
-    --     client.server_capabilities.hoverProvider = false
-    --   end
-    --   require('lspconfig')[server_name].setup {
-    --     capabilities = capabilities,
-    --     on_attach = ruff_on_attach,
-    --     settings = servers[server_name],
-    --     filetypes = (servers[server_name] or {}).filetypes,
-    --   }
-    -- else -- if server_name is not ruff_lsp, on_attach needs to be on_attach
-    --   require('lspconfig')[server_name].setup {
-    --     capabilities = capabilities,
-    --     on_attach = on_attach,
-    --     settings = servers[server_name],
-    --     filetypes = (servers[server_name] or {}).filetypes,
-    --   }
-    -- end
-
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
+      settings = (servers[server_name] or {}).settings,
+      init_options = (servers[server_name] or {}).init_options,
       filetypes = (servers[server_name] or {}).filetypes,
       cmd = (servers[server_name] or {}).cmd,
     }
   end,
 }
+
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
