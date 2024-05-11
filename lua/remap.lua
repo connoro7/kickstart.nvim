@@ -203,7 +203,7 @@ keymap("n", "<leader>pwd", "<cmd>echo expand('%:p')<CR>", {
 	desc = "Print working directory",
 })
 -- [[ run current file ]]
-keymap("n", "<leader>pyr", "<cmd>!python %<CR>", { desc = '[py]thon [r]un current buffer' });
+keymap("n", "<leader>pyr", "<cmd>!python3 %<CR>", { desc = '[py]thon [r]un current buffer' });
 -- [[ Organize Python Imports ]]
 keymap("n", "<leader>poi", "<cmd>PyrightOrganizeImports<CR>", { desc = '[P]yright [O]rganize [I]mports' });
 -- [[ Set filetype of current buffer ]]
