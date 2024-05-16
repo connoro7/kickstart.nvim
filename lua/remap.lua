@@ -157,17 +157,15 @@ keymap("v", "s:", [[:s/\(['"]\{,1}\w\+['"]\{,1}\)\([:$]\)\s\+\([^;,]*\)/\3: \1<C
 -- })
 
 -- [[ Window Management ]]
--- [[ split window horizontally ]]
 keymap("n", "sv", "<C-w>s", { desc = "Split window horizontally" })
--- [[ split window vertically ]]
 keymap("n", "sf", "<C-w>v", { desc = "Split window vertically" })
--- [[ move between windows ]]
 keymap("n", "<leader>hh", "<C-w>h", { desc = "Move to window left" })
 keymap("n", "<leader>jj", "<C-w>j", { desc = "Move to window below" })
 keymap("n", "<leader>kk", "<C-w>k", { desc = "Move to window above" })
 keymap("n", "<leader>ll", "<C-w>l", { desc = "Move to window right" })
 -- [[ move to next window ]]
 keymap("n", "ss", "<C-w>w", { desc = "Move to next window" })
+keymap("n", "SS", "<C-w>W", { desc = "Move to prev window" })
 -- [[ close current window ]]
 keymap("n", "sx", "<C-w>c", { desc = "Close current window" })
 -- [[ go to previous buffer ]]
@@ -216,7 +214,7 @@ command! -nargs=1 SetFiletype call SetFileType(<f-args>)
 ]])
 keymap("n", "<leader>ft", ":SetFiletype ", { noremap = true, desc = "set filetype=[ext]" })
 -- [[ Run command on current line ]]
-vim.keymap.set('n', "<leader>xr", [["xdd@x]], { desc = 'Run command under cursor' })
+keymap('n', "<leader>xr", [["xdd@x]], { desc = 'Run command under cursor' })
 keymap("n", "<leader>xFR", [[:%!find .]], { desc = "Replace buffer with ls of cwd at cursor" })
 keymap("n", "<leader>xFP", [[:.!find .]], { desc = "Paste ls of cwd at cursor" })
 
