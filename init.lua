@@ -484,8 +484,8 @@ local servers = {
     init_options = {
       settings = { -- see: https://github.com/astral-sh/ruff-lsp?tab=readme-ov-file#settings
         args = { "--config " .. vim.loop.os_homedir() .. "/dev/scale-qe/pyproject.toml" },
-        lint = { args = { "--line-length=99" } },
-        format = { args = { "--line-length=99" } },
+        -- lint = { args = { "--line-length=99" } },
+        -- format = { args = { "--line-length=99" } },
       },
     },
     single_file_support = true
