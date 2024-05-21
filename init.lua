@@ -429,21 +429,20 @@ local servers = {
   clangd = {
     cmd = {
       "clangd",
-      -- "--all-scopes-completion",
+      -- "--all-scopes-completion", -- If set to true, code completion will include index symbols that are not defined in the scopes (e.g. namespaces) visible from the code completion point. Such completions can insert scope qualifiers.
       -- "--suggest-missing-includes",
       "--background-index",
       -- "--pch-storage=disk",
       -- "--cross-file-rename",
       -- "--log=info",
-      -- "--completion-style=detailed",
-      "--enable-config", -- clangd 11+ supports reading from .clangd configuration file
-      -- "--clang-tidy",
-      "--style='file:/home/cdillon/dev/scqad/.clang-format'",
+      "--completion-style=detailed", -- [detailed | bundled] If set to detailed, code completion will include detailed information about the completion item.
+      "--enable-config",             -- clangd 11+ supports reading from .clangd configuration file
+      -- "--clang-tidy", -- enable clang-tidy diagnostics
       "--offset-encoding=utf-16",
       -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
       -- "--fallback-style=Google",
       -- "--header-insertion=never",
-      -- "--query-driver=<list-of-white-listed-complers>"
+      "--query-driver=/usr/bin/c++"
     },
   },
   rust_analyzer = {
