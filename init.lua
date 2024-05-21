@@ -123,6 +123,30 @@ autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+local lazy_cmds = vim.api.nvim_create_augroup('lazy_cmds', { clear = true })
+local snapshot_dir = vim.fn.stdpath('data') .. '/plugin-snapshot'
+local lockfile = vim.fn.stdpath('config') .. '/lazy-lock.json'
+-- [[ Browse Snapshots ]]
+-- Opens the lazy.nvim snapshot directory with :BrowseSnapshots
+vim.api.nvim_create_user_command(
+  'BrowseSnapshots',
+  'edit ' .. snapshot_dir,
+  {}
+)
+-- [[ Snapshot of lazy.nvim lockfile ]]
+-- Saves a snapshot of the lockfile before running LazyUpdate
+vim.api.nvim_create_autocmd('User', {
+  group = lazy_cmds,
+  pattern = 'LazyUpdatePre',
+  desc = 'Backup lazy.nvim lockfile',
+  callback = function(event)
+    vim.fn.mkdir(snapshot_dir, 'p')
+    local snapshot = snapshot_dir .. os.date('/%Y-%m-%dT%H:%M:%S.json')
+
+    vim.loop.fs_copyfile(lockfile, snapshot)
+  end,
+})
 -- [[ Autocmd Copilot ]]
 -- local copilot_group = vim.api.nvim_create_augroup('Copilot', { clear = true })
 -- add b:copilot_workspace_folders to the buffer on BufWinEnter from ~/dev/scale-qe/*.* files
