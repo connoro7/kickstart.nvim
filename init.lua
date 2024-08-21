@@ -59,19 +59,36 @@ vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float,
 vim.keymap.set('n', '<leader>vq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Custom Commands ]]
-
 local nvim_cmd = vim.api.nvim_command
 -- See `:help vim.api.nvim_command()`
+
 -- [[ Align Columns ]]
 nvim_cmd("command! -range=% Align <line1>,<line2>!column -t")
+
+-- [[ Align Markdown Tables ]]
+nvim_cmd("command! -range=% AlignTable <line1>,<line2>!tr -s ' ' | column -t -s '|' -o '|'")
+
 -- [[ Open Terminal ]]
 -- nvim_cmd("command! -nargs=* -complete=shellcmd Term :Term <args>")
+
 -- [[ Print result of bash command ]]
-nvim_cmd("command! -nargs=* -complete=shellcmd Bash :echo system(<q-args>)")
+-- nvim_cmd("command! -nargs=* -complete=shellcmd Bash :echo system(<q-args>)")
+
 -- [[ Insert result of bash command at cursor ]]
 -- nvim_cmd("command! -nargs=* -complete=shellcmd BashInsert :put=system(\"<q-args>\")")
+
 -- [[ Insert result of find at cursor ]]
--- nvim_cmd("command! -nargs=* -complete=shellcmd FindInsert :put system(\"find . -name '<q-args>'\")")
+-- nvim_cmd("command! -nargs=* -complete=shellcmd FindInsert :put=system('find . -name ' . shellescape(<q-args>))")
+-- nvim_cmd("command! -nargs=* -complete=shellcmd FindInsert :put=system('find . -name ' . shellescape(<q-args>))")
+
+-- [[ Run command on current line in shell with .!sh as Exec, with support for range in visual mode ]]
+nvim_cmd("command! -nargs=* -complete=shellcmd Exec :.!sh")
+
+-- [[ Insert how to execute in-buffer command ]]
+nvim_cmd(
+  "command! -nargs=* -complete=shellcmd ExecHelp :put='To execute command, place cursor on line and type !!sh (normal) or :.!sh (normal, visual)'")
+-- nvim_cmd("command! -nargs=* -complete=shellcmd ExecV :'<,'>.!sh") -- broken, does not handle range in visual mode
+-- nvim_cmd("command! -nargs=* -complete=shellcmd ExecLine :'<,'>!sh") -- broken, does not handle range in visual mode
 
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
@@ -249,7 +266,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.keymap.set('n', '<leader>sc', require('telescope.builtin').commands, { desc = '[s]earch [c]ommands ' })
 vim.keymap.set('n', '<leader>sk', require('telescope.builtin').keymaps, { desc = '[s]earch [k]eymaps' })
 vim.keymap.set('n', '<leader>si', require('telescope.builtin').lsp_implementations,
-  { desc = '[t]elescope [i]mplementations' })
+  { desc = 'tele[s]cope [i]mplementations' })
 vim.keymap.set('n', '<leader>ps', function()
   require('telescope.builtin').grep_string({
     search = vim.fn.input("Grep > ")
