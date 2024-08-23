@@ -90,6 +90,10 @@ nvim_cmd(
 -- nvim_cmd("command! -nargs=* -complete=shellcmd ExecV :'<,'>.!sh") -- broken, does not handle range in visual mode
 -- nvim_cmd("command! -nargs=* -complete=shellcmd ExecLine :'<,'>!sh") -- broken, does not handle range in visual mode
 
+-- [[ Insert how to increment/decrement selection of numbers]]
+nvim_cmd(
+  "command! -nargs=* -complete=shellcmd IncrementHelp :put='To increment/decrement selection of numbers, select the desired text and type g<C-a> (increment) or g<C-x> (decrement). If <C-a> is bound in tmux, use g<C-a><C-a>.'")
+
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
 local settings_group = augroup("Settings", {})
