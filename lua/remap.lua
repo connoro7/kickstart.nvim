@@ -98,6 +98,8 @@ keymap("v", "<leader>vs", [[:s/\%V//gI<Left><Left><Left><Left>]],
 	{ desc = "Replace across current selection." })
 -- [[ replace at start of line ]]
 keymap({ "n", "v" }, "<leader>bs", [[:s/^//<Left>]], { desc = "Replace at start of current line" })
+-- [[ replace at end of line ]]
+keymap({ "n", "v" }, "<leader>as", [[:s/$//<Left>]], { desc = "Replace at start of current line" })
 -- [[ gat to title-case current selection ]]
 keymap("v", "gat", ":s/\\<./\\u&/g<CR>:noh<CR>", { desc = "Title-case selection" })
 -- [[ swap text around equal sign ]]
