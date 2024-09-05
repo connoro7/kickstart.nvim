@@ -86,13 +86,25 @@ nvim_cmd("command! -nargs=* -complete=shellcmd Exec :.!sh")
 
 -- [[ Insert how to execute in-buffer command ]]
 nvim_cmd(
-  "command! -nargs=* -complete=shellcmd ExecHelp :put='To execute command, place cursor on line and type !!sh (normal) or :.!sh (normal, visual)'")
+  "command! -nargs=* -complete=shellcmd HelpExec :put='To execute command, place cursor on line and type !!sh (normal) or :.!sh (normal, visual)'")
 -- nvim_cmd("command! -nargs=* -complete=shellcmd ExecV :'<,'>.!sh") -- broken, does not handle range in visual mode
 -- nvim_cmd("command! -nargs=* -complete=shellcmd ExecLine :'<,'>!sh") -- broken, does not handle range in visual mode
 
 -- [[ Insert how to increment/decrement selection of numbers]]
 nvim_cmd(
-  "command! -nargs=* -complete=shellcmd IncrementHelp :put='To increment/decrement selection of numbers, select the desired text and type g<C-a> (increment) or g<C-x> (decrement). If <C-a> is bound in tmux, use g<C-a><C-a>.'")
+  "command! -nargs=* -complete=shellcmd HelpIncrement :put='To increment/decrement selection of numbers, select the desired text and type g<C-a> (increment) or g<C-x> (decrement). If <C-a> is bound in tmux, use g<C-a><C-a>.'")
+
+-- [[ Insert how to copy and paste all lines matching regex ]]
+nvim_cmd(
+  "command! -nargs=* -complete=shellcmd HelpCopyPasteAllByRegex :put='To copy and paste all lines matching a regex, type :g/<pattern>/y or '")
+
+-- [[ Insert to get help for pattern matching ]]
+nvim_cmd(
+  "command! -nargs=* -complete=shellcmd HelpPatternMatching :put='To get help for pattern matching, type :help pattern, :help :g, :help :s, :help :v, :help :t, :help :ex, :help :d', :help :norm, :help :p, :help :pu")
+
+-- [[ Insert help about regex capture groups ]]
+nvim_cmd(
+  "command! -nargs=* -complete=shellcmd HelpCaptureGroup :put='To get help for regex capture groups, type :help \\(, :help \\), :help \\1'")
 
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
