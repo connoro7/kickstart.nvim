@@ -96,7 +96,7 @@ nvim_cmd(
 
 -- [[ Insert how to copy and paste all lines matching regex ]]
 nvim_cmd(
-  "command! -nargs=* -complete=shellcmd HelpCopyPasteAllByRegex :put='To copy and paste all lines matching a regex, type :g/<pattern>/y or '")
+  "command! -nargs=* -complete=shellcmd HelpCopyPasteAllByRegex :put='To copy and paste all lines matching a regex, type :g/<pattern>/y A (copy to register a) or :g/<pattern>/t$ (paste). To copy and paste all lines not matching a regex, type :v/<pattern>/y A (copy to register a) or :v/<pattern>/t$ (paste).'")
 
 -- [[ Insert to get help for pattern matching ]]
 nvim_cmd(
