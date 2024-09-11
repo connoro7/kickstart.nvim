@@ -235,6 +235,10 @@ keymap(
 -- [[ show command messages ]]
 keymap("n", "<leader>msg", "<cmd>messages<CR>", { desc = "Show command [m]e[s]sa[g]es" })
 
+-- [[ Open LSP logs]]
+keymap("n", "<leader>log", "<cmd>edit " .. vim.lsp.get_log_path() .. "<CR>", { desc = 'Open LSP logs' });
+
+
 -- [[ Plugins, Packages, Misc. ]]
 -- keymap("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/connor/packer.lua<CR>", { desc = '' });
 

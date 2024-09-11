@@ -485,7 +485,11 @@ local servers = {
       -- "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*,modernize-*,-modernize-use-trailing-return-type",
       -- "--fallback-style=Google",
       -- "--header-insertion=never",
-      "--query-driver=/usr/bin/c++"
+      -- "--query-driver=/usr/bin/g++",
+      "--query-driver=/usr/bin/c++",
+      "--compile-commands-dir=" .. vim.fn.getcwd(),
+      -- "--compile-commands-dir=.",
+      -- "--compile-commands-dir=" .. vim.fn.expand("%:p:h"),
     },
   },
   rust_analyzer = {
