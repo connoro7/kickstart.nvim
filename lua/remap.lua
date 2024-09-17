@@ -226,9 +226,10 @@ keymap("n", "<leader>w", "<cmd>set wrap!<CR>", { desc = "Toggle line wrapping" }
 
 keymap(
 	"n",
-	"<leader>flt",
-	"<cmd>hi TreesitterContextBottom gui=underline guisp=Grey<CR>",
-	{ desc = "Underline context at top of screen" }
+	"<leader>tc",
+	"<cmd>TSContextToggle<CR>",
+	-- "<cmd>hi TreesitterContextBottom gui=underline guisp=Grey<CR>",
+	{ desc = "Toggle [t]reesitter [c]ontext" }
 )
 
 
