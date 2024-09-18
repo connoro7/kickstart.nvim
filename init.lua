@@ -572,6 +572,9 @@ local servers = {
   },
 }
 
+local versioned_servers = {
+  "ruff@0.5.7",
+}
 -- Setup neovim lua configuration
 require('neodev').setup()
 
@@ -585,6 +588,7 @@ local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = true,
 }
 
 mason_lspconfig.setup_handlers {
