@@ -106,6 +106,9 @@ nvim_cmd(
 nvim_cmd(
   "command! -nargs=* -complete=shellcmd HelpCaptureGroup :put='To get help for regex capture groups, type :help \\(, :help \\), :help \\1'")
 
+--  [[ Replace “ and ” with " ]]
+nvim_cmd("command! -range=% ReplaceQuotes <line1>,<line2>s/“/\"/g | <line1>,<line2>s/”/\"/g")
+
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
 local settings_group = augroup("Settings", {})
@@ -662,7 +665,7 @@ cmp.setup {
   },
 }
 
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme tokyonight]] -- Options: tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "DarkBlue" })

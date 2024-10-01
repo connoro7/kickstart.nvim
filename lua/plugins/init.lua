@@ -82,8 +82,9 @@ return {
             functions = {},
             variables = {},
             -- Background styles. Can be "dark", "transparent" or "normal"
-            sidebars = "dark",              -- style for sidebars, see below
-            floats = "dark",                -- style for floating windows
+            sidebars = "dark", -- style for sidebars, see below
+            floats = "dark",   -- style for floating windows
+            line_numbers = "white"
           },
           sidebars = { "qf", "help" },      -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
           day_brightness = 0.3,             -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
@@ -93,10 +94,13 @@ return {
 
           --- You can override specific color groups to use other groups or a hex color
           --- function will be called with a ColorScheme table
+          --- base color groups defined here: https://github.com/folke/tokyonight.nvim/blob/main/lua/tokyonight/groups/base.lua
           ---@param colors ColorScheme
           on_colors = function(colors)
             colors.hint = colors.orange
             colors.error = "#ff0000"
+            colors.comment = "#bd3eae"
+            colors.fg_gutter = "#008c8c"
           end,
 
           --- You can override specific highlights to use other groups or a hex color
