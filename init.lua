@@ -109,6 +109,7 @@ nvim_cmd(
 --  [[ Replace “ and ” with " ]]
 nvim_cmd("command! -range=% ReplaceQuotes <line1>,<line2>s/“/\"/g | <line1>,<line2>s/”/\"/g")
 
+
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
 local settings_group = augroup("Settings", {})
@@ -357,10 +358,10 @@ vim.defer_fn(function()
       swap = {
         enable = true,
         swap_next = {
-          ['<leader>a'] = '@parameter.inner',
+          ['<leader>ai'] = '@parameter.inner',
         },
         swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
+          ['<leader>Ai'] = '@parameter.inner',
         },
       },
     },
