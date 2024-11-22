@@ -10,29 +10,40 @@ return {
       FIX = {
         icon = " ", -- icon used for the sign, and in search results
         color = "error", -- can be a hex color, or a named color (see below)
-        alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+        alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED", "ERROR" }, -- a set of other keywords that all map to this FIX keywords
         -- signs = false, -- configure signs for some keywords individually
-        --BUG:
-        --this is a bug
+        -- BUG:
+        -- FIXME:
+        -- BUG:
+        -- FIXIT:
+        -- ISSUE:
+        -- FAILED:
+        -- ERROR:
       },
-      TODO = { icon = " ", color = "info" },
+      TODO = { icon = " ", color = "info", alt = { "HINT" } },
       -- TODO:
-      -- this is a todo
+      -- HINT:
+      SUCCESS = { icon = " ", color = "success", alt = { "GOOD", "PASSED" } },
+      -- SUCCESS:
+      -- GOOD:
+      -- PASSED:
       HACK = { icon = " ", color = "warning" },
       -- HACK:
-      -- this is a HACK
-      WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+      WARN = { icon = " ", color = "warning", alt = { "WARNING" } },
       -- WARN:
-      -- this is a WARN
+      -- WARNING:
+      -- XXX:
       PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
       -- PERF:
-      -- this is a PERF
+      -- PERFORMANCE:
+      -- OPTIM:
+      -- OPTIMIZE:
       NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
       -- NOTE:
-      -- this is a NOTE
-      TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+      -- INFO:
+      TEST = { icon = "⏲ ", color = "test", alt = { "TESTING" } },
       -- TEST:
-      -- this is a TEST
+      -- TESTING:
     },
     gui_style = {
       fg = "NONE",         -- The gui style to use for the fg highlight group.
@@ -62,6 +73,7 @@ return {
       warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
       info = { "DiagnosticInfo", "#2563EB" },
       hint = { "DiagnosticHint", "#10B981" },
+      success = { "Identifier", "#50cf50" },
       default = { "Identifier", "#7C3AED" },
       test = { "Identifier", "#FF00FF" }
     },
@@ -79,7 +91,7 @@ return {
       pattern = [[\b(KEYWORDS):]], -- ripgrep regex
       -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
     },
-  }
-  -- vim.keymap.set("n", "<leader>tdt", ":TodoTelescope<CR>", { desc = "[t]o[d]o [t]elescope" });
+  },
+  vim.keymap.set("n", "<leader>tdt", ":TodoTelescope<CR>", { desc = "[t]o[d]o [t]elescope" }),
   -- vim.keymap.set("n", "<leader>tdq", ":TodoQuickFix<CR>", { desc = "[t]o[d]o [q]uickfix" });
 }

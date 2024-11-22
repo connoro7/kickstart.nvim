@@ -161,10 +161,10 @@ keymap("v", "s:", [[:s/\(['"]\{,1}\w\+['"]\{,1}\)\([:$]\)\s\+\([^;,]*\)/\3: \1<C
 -- [[ Window Management ]]
 keymap("n", "sv", "<C-w>s", { desc = "Split window horizontally" })
 keymap("n", "sf", "<C-w>v", { desc = "Split window vertically" })
-keymap("n", "<leader>hh", "<C-w>h", { desc = "Move to window left" })
-keymap("n", "<leader>jj", "<C-w>j", { desc = "Move to window below" })
-keymap("n", "<leader>kk", "<C-w>k", { desc = "Move to window above" })
-keymap("n", "<leader>ll", "<C-w>l", { desc = "Move to window right" })
+keymap("n", "<leader>wh", "<C-w>h", { desc = "Move to window left" })
+keymap("n", "<leader>wj", "<C-w>j", { desc = "Move to window below" })
+keymap("n", "<leader>wk", "<C-w>k", { desc = "Move to window above" })
+keymap("n", "<leader>wl", "<C-w>l", { desc = "Move to window right" })
 -- [[ move to next window ]]
 keymap("n", "ss", "<C-w>w", { desc = "Move to next window" })
 keymap("n", "SS", "<C-w>W", { desc = "Move to prev window" })

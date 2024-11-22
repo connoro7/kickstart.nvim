@@ -52,7 +52,7 @@ return {
         prev = "[[",
       },
       submit = {
-        normal = "<CR>",
+        normal = "<C-s>",
         insert = "<C-s>",
       },
       sidebar = {
