@@ -109,6 +109,10 @@ nvim_cmd(
 --  [[ Replace “ and ” with " ]]
 nvim_cmd("command! -range=% ReplaceQuotes <line1>,<line2>s/“/\"/g | <line1>,<line2>s/”/\"/g")
 
+-- [[ Set window width to 100 columns like `:set winwidth=100` ]]
+nvim_cmd("command! -nargs=* -complete=shellcmd W50 :set winwidth=50")
+nvim_cmd("command! -nargs=* -complete=shellcmd W80 :set winwidth=80")
+nvim_cmd("command! -nargs=* -complete=shellcmd W100 :set winwidth=100")
 
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
