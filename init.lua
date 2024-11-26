@@ -114,6 +114,9 @@ nvim_cmd("command! -nargs=* -complete=shellcmd W50 :set winwidth=50")
 nvim_cmd("command! -nargs=* -complete=shellcmd W80 :set winwidth=80")
 nvim_cmd("command! -nargs=* -complete=shellcmd W100 :set winwidth=100")
 
+-- [[ Format json with jq '.' from command 'FormatJson' ]]
+nvim_cmd("command! -nargs=* -complete=shellcmd FormatJson :%!jq '.'")
+
 -- [[Autocommands]]
 -- [[Autocmd Settings]]
 local settings_group = augroup("Settings", {})
@@ -130,12 +133,18 @@ autocmd({ "BufWritePre" }, {
   pattern = "*",
   command = [[%s/\s\+$//e]],
 })
--- [[ Format .cpp and .h files with clang-format on save ]]
+-- [[ Format .cpp and .h files with clang-format after save, to save formatting requires double save ]]
 autocmd({ "BufWritePost" }, {
   group = format_group,
   pattern = "*.cpp,*.h",
   command = [[silent !clang-format -i %]],
 })
+-- [[ Format .json files with jq after save, to save formatting requires double save ]]
+-- autocmd({ "BufWritePost" }, {
+--   group = format_group,
+--   pattern = "*.json",
+--   command = [[%!jq '.']],
+-- })
 -- [[Format python files with black]]
 -- autocmd({ "BufWritePost" }, { -- Use BufWritePost to ensure file has been saved first
 --   group = format_group,       -- then have black format the file and reload the file with
