@@ -5,6 +5,9 @@ vim.g.mapleader = " "
 vim.opt.isfname:append("@-@")
 -- vim.wo.number = true
 
+-- disable deprecation warnings
+vim.deprecate = function() end
+
 local options = {
 	backup = false,                       -- creates a backup file
 	-- clipboard = "unnamedplus", -- allows neovim to access the system clipboard, comment out to keep OS clipboard independent. :h clipboard for more info.
