@@ -1,7 +1,4 @@
--- [[ Useful help docs ]]
--- :h keycodes - list of all keycodes
--- :h index - list of all commands
--- :h map-modes - list of all modes
+-- [[ Useful help docs ]] :h keycodes - list of all keycodes :h index - list of all commands :h map-modes - list of all modes
 
 local keymap = vim.keymap.set
 
@@ -185,11 +182,18 @@ end, { desc = "Unhide N buffers, prepend command with N." })
 -- [[ new tmux session, silently ]]
 -- keymap("n", "<C-f>", "<cmd>silent !tmux new tmux-sessionizer<CR>", {desc = 'New tmux session, silently'})
 
--- [[ quick fix navigation ]]
-keymap("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Quickfix next" })
-keymap("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Quickfix prev" })
-keymap("n", "<leader>K", "<cmd>lnext<CR>zz", { desc = "Quickfix next" })
-keymap("n", "<leader>J", "<cmd>lprev<CR>zz", { desc = "Quickfix prev" })
+-- [[ quickfix ]]
+keymap("n", "<leader>qf", function()
+	vim.diagnostic.setqflist({
+		open = true,
+		title = "Diagnostics",
+		Severity = { min = vim.diagnostic.severity.HINT }
+	})
+end, { desc = "Populate quickfix with diagnostics" })
+keymap("n", "<leader>j", "<cmd>cnext<CR>zz", { desc = "Quickfix count next" })
+keymap("n", "<leader>k", "<cmd>cprev<CR>zz", { desc = "Quickfix count prev" })
+keymap("n", "<leader>K", "<cmd>lnext<CR>zz", { desc = "Location list next" })
+keymap("n", "<leader>J", "<cmd>lprev<CR>zz", { desc = "Location list prev" })
 
 -- [[ Commands ]]
 -- [[ Silently make current file executable ]]

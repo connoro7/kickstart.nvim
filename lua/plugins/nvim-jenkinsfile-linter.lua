@@ -5,7 +5,7 @@ local function set_env_var(vim_var_name, os_env_var)
   if value then
     vim.env[vim_var_name] = value
   else
-    print(string.format("%s is not detected.", os_env_var))
+    print(string.format("%s is not detected in OS environment.", os_env_var))
   end
 end
 
@@ -26,7 +26,6 @@ end
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = "Jenkinsfile",
   callback = function()
-    print("Linting Jenkinsfile...")
     require("jenkinsfile_linter").validate()
   end,
 })
