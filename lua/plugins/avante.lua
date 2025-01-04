@@ -1,12 +1,16 @@
+-- Specify the desired provider locally
+local provider = "copilot"
+
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   lazy = false,
   version = false, -- set this if you want to always pull the latest change
   opts = {
-    ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
-    provider = "copilot",
-    auto_suggestions_provider = "copilot",
+    -- ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
+    provider = provider,
+    auto_suggestions_provider = provider,
+    ---@type AvanteSupportedProvider
     claude = {
       endpoint = "https://api.anthropic.com",
       model = "claude-3-5-sonnet-20241022",
@@ -16,17 +20,25 @@ return {
     ---@type AvanteSupportedProvider
     copilot = {
       endpoint = "https://api.githubcopilot.com",
-      model = "gpt-4o-2024-05-13",
-      proxy = nil,            -- [protocol://]host[:port] Use this proxy
-      allow_insecure = false, -- Allow insecure server connections
-      timeout = 30000,        -- Timeout in milliseconds
+      model = "gpt-4o-2024-08-06", -- gpt-4o-2024-05-13, gpt-4o-2024-08-06
+      proxy = nil,                 -- [protocol://]host[:port] Use this proxy
+      allow_insecure = false,      -- Allow insecure server connections
+      timeout = 30000,             -- Timeout in milliseconds
+      temperature = 0,
+      max_tokens = 4096,
+    },
+    ---@type AvanteSupportedProvider
+    gemini = {
+      endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+      model = "gemini-1.5-flash-latest",
+      timeout = 30000, -- Timeout in milliseconds
       temperature = 0,
       max_tokens = 4096,
     },
     behaviour = {
       auto_suggestions = false, -- Experimental stage
       auto_set_highlight_group = true,
-      auto_set_keymaps = true,
+      autoz_set_keymaps = true,
       auto_apply_diff_after_generation = false,
       support_paste_from_clipboard = false,
     },
@@ -130,6 +142,7 @@ return {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
     --- The below dependencies are optional,
+    "hrsh7th/nvim-cmp",            -- for auto_suggestions_provider='copilot'
     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
     "zbirenbaum/copilot.lua",      -- for providers='copilot'
     {

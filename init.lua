@@ -160,7 +160,7 @@ end)
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
 vim.defer_fn(function()
-  -- -@diagnostic disable-next-line: missing-fields
+  ---@diagnostic disable-next-line: missing-fields
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
     ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'json', 'markdown', 'query', 'regex', 'yaml' },
@@ -410,22 +410,19 @@ local servers = {
       }
     },
   },
-  ruff = {
-    enabled = false,
-  },
-  ruff_lsp = {
-    -- enabled = false,
-    cmd = { 'ruff-lsp' },
-    filetypes = { 'python' },
-    init_options = {
-      settings = { -- see: https://github.com/astral-sh/ruff-lsp?tab=readme-ov-file#settings
-        -- args = { "--config " .. vim.loop.os_homedir() .. "/dev/scale-qe/pyproject.toml" },
-        -- lint = { args = { "--line-length=99" } },
-        -- format = { args = { "--line-length=99" } },
-      },
-    },
-    single_file_support = true
-  },
+  ruff = {},
+  -- ruff_lsp = {
+  --   cmd = { 'ruff-lsp' },
+  --   filetypes = { 'python' },
+  --   init_options = {
+  --     settings = { -- see: https://github.com/astral-sh/ruff-lsp?tab=readme-ov-file#settings
+  --       -- args = { "--config " .. vim.loop.os_homedir() .. "/dev/scale-qe/pyproject.toml" },
+  --       -- lint = { args = { "--line-length=99" } },
+  --       -- format = { args = { "--line-length=99" } },
+  --     },
+  --   },
+  --   single_file_support = true
+  -- },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -438,9 +435,10 @@ local servers = {
   },
 }
 
-local versioned_servers = {
-  "ruff@0.5.7",
-}
+-- local versioned_servers = {
+--   "ruff@0.5.7",
+-- }
+
 -- Setup neovim lua configuration
 require('neodev').setup()
 
@@ -457,11 +455,12 @@ mason_lspconfig.setup {
   automatic_installation = true,
 }
 
-local lspconfig = require 'lspconfig'
+-- local lspconfig = require 'lspconfig'
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    lspconfig[server_name].setup {
+    require('lspconfig')[server_name].setup {
+      -- lspconfig[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = (servers[server_name] or {}).settings,
