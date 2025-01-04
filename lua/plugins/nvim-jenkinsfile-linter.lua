@@ -22,18 +22,18 @@ else
   end
 end
 
--- [[ Lint Jenkinsfile with jenkinsfile-linter after save ]]
+-- [[ Lint Jenkinsfile after save ]]
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = "Jenkinsfile",
   callback = function()
     require("jenkinsfile_linter").validate()
   end,
 })
+
+-- [[ Lint Jenkinsfile on keymap ]]
+-- vim.keymap.set("n", "<leader>jl", function() require("jenkinsfile_linter").validate() end)
+
 return {
   "ckipp01/nvim-jenkinsfile-linter",
   requires = { "nvim-lua/plenary.nvim" },
-  -- config = function()
-  --   require("nvim-jenkinsfile-linter").setup()
-  --   -- vim.keymap.set("n", "<leader>jl", function() require("jenkinsfile_linter").validate() end)
-  -- end,
 }
