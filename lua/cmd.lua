@@ -54,5 +54,8 @@ nvim_cmd("command! -nargs=* -complete=shellcmd W50 :set winwidth=50")
 nvim_cmd("command! -nargs=* -complete=shellcmd W80 :set winwidth=80")
 nvim_cmd("command! -nargs=* -complete=shellcmd W100 :set winwidth=100")
 
--- [[ Format json with jq '.' from command 'FormatJson' ]]
-nvim_cmd("command! -nargs=* -complete=shellcmd FormatJson :%!jq '.'")
+-- [[ Format entire json file with jq '.' from command 'FormatJson' ]]
+nvim_cmd("command! -nargs=* -complete=shellcmd FormatJsonFile :%!jq '.'")
+
+-- [[ Format a range of lines with jq '.' from command 'FormatJsonVisual' ]]
+nvim_cmd("command! -range=% -nargs=* -complete=shellcmd FormatJsonVisual :'<,'>!jq '.'")
