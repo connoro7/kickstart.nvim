@@ -46,7 +46,7 @@ keymap("n", "<leader>iy", "viwy", { desc = "Yank inside current word" })
 -- [[ overwrite-paste inside current word ]]
 keymap("n", "<leader>ip", "viwP", { desc = "Paste inside current word, overwriting inside current word" })
 -- [[ paste from void register, so that pasting over highlighted text won't add highlighted text to yank register ]]
-keymap("x", "<leader>P", [["_dP]], {
+keymap("x", "<leader>p", [["_dP]], {
 	desc =
 	"Paste from void register, so that pasting over highlighted text won't add highlighted text to yank register",
 })
