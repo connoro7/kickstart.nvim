@@ -1,6 +1,23 @@
 -- Specify the desired provider locally
 local provider = "copilot"
 
+
+local keymap = vim.keymap.set
+local nvim_cmd = vim.api.nvim_command
+
+-- As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code:
+
+-- Identifying and fixing any bugs or potential edge cases
+-- Improving code efficiency and performance
+-- Enhancing readability and maintainability
+-- Implementing secure coding practices
+-- Adhering to industry-standard style guidelines for [specify programming language]
+-- Suggesting any design pattern implementations that could benefit the code structure
+-- Recommending appropriate error handling and logging mechanisms
+-- Identifying opportunities for modularization or use of helper functions
+-- Ensuring proper commenting and documentation
+-- Proposing unit tests to validate the code's functionality
+
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
