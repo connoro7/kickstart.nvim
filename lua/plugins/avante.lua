@@ -5,18 +5,19 @@ local provider = "copilot"
 local keymap = vim.keymap.set
 local nvim_cmd = vim.api.nvim_command
 
--- As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code:
 
--- Identifying and fixing any bugs or potential edge cases
--- Improving code efficiency and performance
--- Enhancing readability and maintainability
--- Implementing secure coding practices
--- Adhering to industry-standard style guidelines for [specify programming language]
--- Suggesting any design pattern implementations that could benefit the code structure
--- Recommending appropriate error handling and logging mechanisms
--- Identifying opportunities for modularization or use of helper functions
--- Ensuring proper commenting and documentation
--- Proposing unit tests to validate the code's functionality
+--[[
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by identifying and fixing any bugs or potential edge cases
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by improving code efficiency and performance
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by enhancing readability and maintainability
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by implementing secure coding practices
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by adhering to industry-standard style guidelines for [specify programming language]
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by suggesting any design pattern implementations that could benefit the code structure
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by recommending appropriate error handling and logging mechanisms
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by identifying opportunities for modularization or use of helper functions
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by ensuring proper commenting and documentation
+As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by proposing unit tests to validate the code's functionality
+]]
 
 return {
   "yetone/avante.nvim",
@@ -53,6 +54,7 @@ return {
       max_tokens = 4096,
     },
     behaviour = {
+      auto_focus_sidebar = true,
       auto_suggestions = false, -- Experimental stage
       auto_set_highlight_group = true,
       autoz_set_keymaps = true,
