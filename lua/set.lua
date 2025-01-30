@@ -45,12 +45,12 @@ local options = {
 	numberwidth = 1,                      -- set number column width to 2 {default 4}
 	signcolumn = "yes",                   -- always show the sign column, otherwise it would shift the text each time
 	wrap = false,                         -- default do not wrap lines
-	scrolloff = 8,                        -- is one of my fav
-	sidescrolloff = 10,
-	-- guifont = "monospace:h17",            -- the font used in graphical neovim applications
-	laststatus = 3, -- when the last window will get a status line (default 2. 0 = never, 1 = iff >=2 windows, 2 = always, 3 = always & ONLY the last window)
-	foldlevel = 99,
-	foldmethod = "indent",
+	scrolloff = 8,                        -- minimum number of screen lines to keep above and below the cursor
+	sidescrolloff = 10,                   -- minimum number of screen columns to keep to the left and right of the cursor
+	-- guifont = "monospace:h17",         -- the font used in graphical neovim applications
+	laststatus = 3,                       -- when the last window will get a status line (default 2. 0 = never, 1 = iff >=2 windows, 2 = always, 3 = always & ONLY the last window)
+	foldlevel = 99,                       -- start with all folds open
+	foldmethod = "manual",                -- manual, indent (equal indent form fold), syntax (fold by syntax), marker (fold by foldmarker), expr (), diff (fold text that is not changed)
 }
 
 for k, v in pairs(options) do

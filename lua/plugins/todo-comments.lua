@@ -1,4 +1,21 @@
 -- See: https://github.com/folke/todo-comments.nvim
+--[[ note
+tip
+important
+caution
+invalid
+summary
+tldr
+info
+check
+done
+question
+help
+attention
+missing
+danger
+example
+quote  ]]
 return {
   "folke/todo-comments.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
@@ -10,7 +27,7 @@ return {
       FIX = {
         icon = " ", -- icon used for the sign, and in search results
         color = "error", -- can be a hex color, or a named color (see below)
-        alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED", "ERROR" }, -- a set of other keywords that all map to this FIX keywords
+        alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED", "ERROR", "BAD", "NO", "DANGER" }, -- a set of other keywords that all map to this FIX keywords
         -- signs = false, -- configure signs for some keywords individually
         -- BUG:
         -- FIXME:
@@ -19,21 +36,24 @@ return {
         -- ISSUE:
         -- FAILED:
         -- ERROR:
+        -- BAD:
+        -- NO:
       },
-      TODO = { icon = " ", color = "info", alt = { "HINT" } },
+      TODO = { icon = " ", color = "info", alt = { "HINT", "TIP" } },
       -- TODO:
       -- HINT:
-      SUCCESS = { icon = " ", color = "success", alt = { "GOOD", "PASSED" } },
+      SUCCESS = { icon = " ", color = "success", alt = { "GOOD", "PASSED", "DONE" } },
       -- SUCCESS:
       -- GOOD:
       -- PASSED:
+      -- DONE:
       HACK = { icon = " ", color = "warning" },
       -- HACK:
-      WARN = { icon = " ", color = "warning", alt = { "WARNING" } },
+      WARN = { icon = " ", color = "warning", alt = { "WARNING", "ATTENTION" } },
       -- WARN:
       -- WARNING:
       -- XXX:
-      PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+      PERF = { icon = " ", color = "default", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
       -- PERF:
       -- PERFORMANCE:
       -- OPTIM:
@@ -41,9 +61,13 @@ return {
       NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
       -- NOTE:
       -- INFO:
-      TEST = { icon = "⏲ ", color = "test", alt = { "TESTING" } },
+      TEST = { icon = "󰙨", color = "test", alt = { "TESTING" } },
       -- TEST:
       -- TESTING:
+      LINK = { icon = " ", color = "default", alt = { "SOURCE", "SEE" } },
+      -- LINK:
+      -- SOURCE:
+      -- SEE:
     },
     gui_style = {
       fg = "NONE",         -- The gui style to use for the fg highlight group.
@@ -69,13 +93,20 @@ return {
     -- list of named colors where we try to extract the guifg from the
     -- list of highlight groups or use the hex color if hl not found as a fallback
     colors = {
+      -- error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
+      -- warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
+      -- info = { "DiagnosticInfo", "#2563EB" },
+      -- hint = { "DiagnosticHint", "#10B981" },
+      -- success = { "Identifier", "#50cf50" },
+      -- default = { "Identifier", "#7C3AED" },
+      -- test = { "Identifier", "#FF00FF" }
       error = { "DiagnosticError", "ErrorMsg", "#DC2626" },
       warning = { "DiagnosticWarn", "WarningMsg", "#FBBF24" },
       info = { "DiagnosticInfo", "#2563EB" },
       hint = { "DiagnosticHint", "#10B981" },
-      success = { "Identifier", "#50cf50" },
-      default = { "Identifier", "#7C3AED" },
-      test = { "Identifier", "#FF00FF" }
+      success = { "#50cf50" },
+      default = { "#7C3AED" },
+      test = { "#FF00FF" }
     },
     search = {
       command = "rg",
