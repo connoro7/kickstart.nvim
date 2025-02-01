@@ -86,30 +86,31 @@ return {
         normal = "<C-s>",
         insert = "<C-s>",
       },
+      ask = "<leader>aa",
+      edit = "<leader>ae",
+      refresh = "<leader>ar",
+      focus = "<leader>af",
+      toggle = {
+        default = "<leader>at",
+        debug = "<leader>ad",
+        hint = "<leader>ah",
+        suggestion = "<leader>aS",
+        repomap = "<leader>aR",
+      },
       sidebar = {
         apply_all = "A",
         apply_cursor = "a",
         switch_windows = "ss",
         reverse_switch_windows = "SS",
+        add_file = "@",
+        remove_file = "d",
       },
-      -- - <<Space>af>: avante: focus
-      -- - <<Space>at>: avante: toggle
-      -- - <<Space>aR>: avante: display repo map
-      -- - <<Space>ah>: avante: toggle hint
-      -- - <<Space>ar>: avante: refresh
-      -- - <<Space>aa>: avante: ask
-      -- - <<Space>ad>: avante: toggle debug
-      -- - <<Space>as>: avante: toggle suggestion
-      enable_disable = {
-        toggle = "<leader>at",
+      files = {
+        add_current = "<leader>ac", -- add current file to selected files
       },
-      -- toggle suggestion
-
-
-
-      -- ask = "<leader>aa",
-      -- edit = "<leader>ae",
-      -- refresh = "<leader>ar",
+      -- enable_disable = {
+      --   toggle = "<leader>at",
+      -- },
     },
     hints = { enabled = false },
     windows = {
