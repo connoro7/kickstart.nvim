@@ -54,7 +54,7 @@ return {
       max_tokens = 4096,
     },
     behaviour = {
-      auto_focus_sidebar = true,
+      auto_focus_sidebar = false,
       auto_suggestions = false, -- Experimental stage
       auto_set_highlight_group = true,
       autoz_set_keymaps = true,
@@ -89,8 +89,8 @@ return {
       sidebar = {
         apply_all = "A",
         apply_cursor = "a",
-        switch_windows = "<Tab>",
-        reverse_switch_windows = "<S-Tab>",
+        switch_windows = "ss",
+        reverse_switch_windows = "SS",
       },
       -- - <<Space>af>: avante: focus
       -- - <<Space>at>: avante: toggle
@@ -103,6 +103,9 @@ return {
       enable_disable = {
         toggle = "<leader>at",
       },
+      -- toggle suggestion
+
+
 
       -- ask = "<leader>aa",
       -- edit = "<leader>ae",
