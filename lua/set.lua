@@ -16,14 +16,13 @@ local options = {
 	conceallevel = 0,                     -- so that `` is visible in markdown files
 	fileencoding = "utf-8",               -- the encoding written to a file
 	hlsearch = true,                      -- highlight all matches on previous search pattern
-	ignorecase = true,                    -- ignore case in search patterns
 	mouse = "a",                          -- allow the mouse to be used in neovim
 	-- pumheight = 10,                       -- set max height of popup menu, such as cmp
 	showmode = false,                     -- we don't need to see things like -- INSERT -- anymore
 	showtabline = 2,                      -- always show tabs
-	softtabstop = 4,                      -- use both tabs and spaces so that indenting works better
 	colorcolumn = "80",                   -- Color column color settings found in ../../after/plugin/colors.lua
-	smartcase = true,                     -- smart case
+	ignorecase = true,                    -- ignore case in search patterns
+	smartcase = true,                     -- override ignorecase if search pattern contains upper case
 	smartindent = true,                   -- make indenting smarter again
 	-- guicursor = "",					  -- override cursor per mode, see `:help guicursor`
 	linebreak = true,                     -- :set lbr by default so I can toggle wrap without weird linebreaks
@@ -38,7 +37,8 @@ local options = {
 	-- writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 	expandtab = true,                     -- convert tabs to spaces
 	shiftwidth = 4,                       -- the number of spaces inserted for each indentation
-	tabstop = 4,                          -- insert 2 spaces for a tab
+	tabstop = 4,                          -- number of spaces that a <Tab> in a file counts for
+	softtabstop = 4,                      -- use both tabs and spaces so that indenting works better
 	cursorline = true,                    -- highlight the current line
 	number = true,                        -- set numbered lines
 	relativenumber = true,                -- set relative numbered lines
@@ -51,6 +51,7 @@ local options = {
 	laststatus = 3,                       -- when the last window will get a status line (default 2. 0 = never, 1 = iff >=2 windows, 2 = always, 3 = always & ONLY the last window)
 	foldlevel = 99,                       -- start with all folds open
 	foldmethod = "manual",                -- manual, indent (equal indent form fold), syntax (fold by syntax), marker (fold by foldmarker), expr (), diff (fold text that is not changed)
+	spell = false,                        -- enable spell checking
 }
 
 for k, v in pairs(options) do
