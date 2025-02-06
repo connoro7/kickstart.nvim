@@ -2,6 +2,10 @@
 local nvim_cmd = vim.api.nvim_command
 -- See `:help vim.api.nvim_command()`
 
+-- [[ Logging ]]
+-- Set Lsp log level, options: TRACE, DEBUG, INFO, WARN, ERROR, OFF. See [:h vim.lsp.set_log_level]
+nvim_cmd("command! -nargs=1 LogLevel lua vim.lsp.set_log_level(<f-args>)")
+
 -- [[ Align Columns ]]
 nvim_cmd("command! -range=% Align <line1>,<line2>!column -t")
 
