@@ -1,21 +1,4 @@
 -- See: https://github.com/folke/todo-comments.nvim
---[[ note
-tip
-important
-caution
-invalid
-summary
-tldr
-info
-check
-done
-question
-help
-attention
-missing
-danger
-example
-quote  ]]
 return {
   "folke/todo-comments.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
@@ -29,7 +12,7 @@ return {
         color = "error", -- can be a hex color, or a named color (see below)
         alt = { "FIXME", "BUG", "FIXIT", "ISSUE", "FAILED", "ERROR", "BAD", "NO", "DANGER" }, -- a set of other keywords that all map to this FIX keywords
         -- signs = false, -- configure signs for some keywords individually
-        -- BUG:
+        -- FIX:
         -- FIXME:
         -- BUG:
         -- FIXIT:
@@ -38,36 +21,58 @@ return {
         -- ERROR:
         -- BAD:
         -- NO:
+        -- DANGER:
       },
-      TODO = { icon = " ", color = "info", alt = { "HINT", "TIP" } },
+      TODO = { icon = " ", color = "info", alt = { "HINT" } },
       -- TODO:
       -- HINT:
-      SUCCESS = { icon = " ", color = "success", alt = { "GOOD", "PASSED", "DONE" } },
+      SUCCESS = { icon = " ", color = "success", alt = { "GOOD", "PASSED", "DONE", "SEE", "See", "see" } },
       -- SUCCESS:
       -- GOOD:
       -- PASSED:
       -- DONE:
-      HACK = { icon = " ", color = "warning" },
+      -- SEE:
+      -- See:
+      -- see:
+      HACK = { icon = " ", color = "warning", alt = { "INVALID" } },
       -- HACK:
-      WARN = { icon = " ", color = "warning", alt = { "WARNING", "ATTENTION" } },
+      -- INVALID:
+      WARN = { icon = " ", color = "warning", alt = { "CAUTION", "WARNING", "ATTENTION", "IMPORTANT" } },
       -- WARN:
       -- WARNING:
-      -- XXX:
+      -- CAUTION:
+      -- ATTENTION:
+      -- IMPORTANT:
       PERF = { icon = " ", color = "default", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
       -- PERF:
       -- PERFORMANCE:
       -- OPTIM:
       -- OPTIMIZE:
-      NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+      NOTE = { icon = " ", color = "hint", alt = { "INFO", "EXAMPLE", "TIP", "SUMMARY", "TLDR", "tldr", "tl;dr" } },
       -- NOTE:
       -- INFO:
-      TEST = { icon = "󰙨", color = "test", alt = { "TESTING" } },
+      -- EXAMPLE:
+      -- TIP:
+      -- SUMMARY:
+      -- TLDR:
+      -- tldr:
+      -- tl;dr:
+      TEST = { icon = "󰙨", color = "test", alt = { "TESTING", "CHECK", "VERIFY" } },
       -- TEST:
       -- TESTING:
-      LINK = { icon = " ", color = "default", alt = { "SOURCE", "SEE" } },
+      -- CHECK:
+      -- VERIFY:
+      LINK = { icon = " ", color = "default", alt = { "SOURCE" } },
       -- LINK:
       -- SOURCE:
-      -- SEE:
+      QUESTION = { icon = " ", color = "question", alt = { "HELP", "MISSING" } },
+      -- QUESTION:
+      -- HELP:
+      -- MISSING:
+      QUOTE = { icon = " ", color = "quote", alt = { "CITE", "CITATION" } },
+      -- QUOTE:
+      -- CITE:
+      -- CITATION:
     },
     gui_style = {
       fg = "NONE",         -- The gui style to use for the fg highlight group.
@@ -106,7 +111,9 @@ return {
       hint = { "DiagnosticHint", "#10B981" },
       success = { "#50cf50" },
       default = { "#7C3AED" },
-      test = { "#FF00FF" }
+      test = { "#FF00FF" },
+      question = { "#FFFF00" },
+      quote = { "#FFFFFF" }
     },
     search = {
       command = "rg",
