@@ -190,10 +190,20 @@ keymap("n", "<leader>qf", function()
 		Severity = { min = vim.diagnostic.severity.HINT }
 	})
 end, { desc = "Populate quickfix with diagnostics" })
-keymap("n", "<leader>j", "<cmd>cnext<CR>zz", { desc = "Quickfix count next" })
-keymap("n", "<leader>k", "<cmd>cprev<CR>zz", { desc = "Quickfix count prev" })
-keymap("n", "<leader>K", "<cmd>lnext<CR>zz", { desc = "Location list next" })
-keymap("n", "<leader>J", "<cmd>lprev<CR>zz", { desc = "Location list prev" })
+vim.keymap.set('n', '<M-j>', function()
+	local success, _ = pcall(vim.cmd.cnext)
+	if not success then
+		vim.cmd.cfirst()
+	end
+end, { desc = 'Navigate to next quickfix item or wrap to first' })
+vim.keymap.set('n', '<M-k>', function()
+	local success, _ = pcall(vim.cmd.cprev)
+	if not success then
+		vim.cmd.clast()
+	end
+end, { desc = 'Navigate to previous quickfix item or wrap to last' })
+keymap("n", "<M-K>", "<cmd>lnext<CR>zz", { desc = "Location list next" })
+keymap("n", "<M-J>", "<cmd>lprev<CR>zz", { desc = "Location list prev" })
 
 -- [[ Commands ]]
 -- [[ Silently make current file executable ]]

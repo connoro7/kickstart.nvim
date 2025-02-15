@@ -71,7 +71,15 @@ require('telescope').setup {
       "DC/sc*",
       "DC/net*",
       "poetry.lock*",
-      "ui-paths/migration*"
+      "ui-paths/migration*",
+      "*pycache*",
+      "*.qcow2",
+      "*.iso",
+      "*.img",
+      "*.vmdk",
+      "*.vdi",
+      "*.vhd",
+      "*.vhdx",
     }
   },
 }
