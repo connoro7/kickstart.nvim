@@ -537,7 +537,7 @@ cmp.setup {
   },
 }
 
-vim.cmd [[colorscheme tokyonight-day]] -- Options: tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
+vim.cmd [[colorscheme tokyonight]] -- Options: tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "DarkBlue" })
