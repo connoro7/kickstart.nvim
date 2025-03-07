@@ -5,7 +5,7 @@ local keymap = vim.keymap.set
 -- [[ File Explorer ]]
 --keymap("n", "<leader>pv", vim.cmd.Ex) -- For default netrw
 keymap("n", "<leader>pv", vim.cmd.NvimTreeOpen, { desc = "Open NvimTree" }) -- When using nvimtree file explorer
-keymap("n", "<leader>fx", vim.cmd.NvimTreeClose, { desc = "Close NvimTree" })
+keymap("n", "<leader>tf", vim.cmd.NvimTreeClose, { desc = "[t]oggle [f]iletree" })
 
 -- [[ Buffers, registers ]]
 keymap("n", "<leader>r", ":reg<CR>", { desc = "Show registers" })
@@ -62,6 +62,7 @@ keymap("i", "<C-d>", "<C-w>", { desc = "Delete previous word" })
 -- [[ Folds, Folding ]]
 -- usage: find next curly brace, then fold under cursor
 keymap({ "n", "v" }, "<leader>zf", "hf{zfa{", { desc = "Fold under cursor" })
+-- :set fdm=manual indent expr marker syntax diff
 -- zf/<string> folds from cursor to string
 -- zj, zk moves cursor to next/prev folds
 -- zo, z0 opens one/all folds at cursor
@@ -77,7 +78,7 @@ keymap("n", "<leader>vf", "va{V", { desc = "[V]isual [f]unction" })
 keymap("v", "+", "<C-a>", { desc = "Increment selection" })
 keymap("v", "-", "<C-x>", { desc = "Decrement selection" })
 -- Usage: In Normal Mode, <Leader>f To format text
-keymap("n", "<leader>f", vim.lsp.buf.format, { desc = "Format text" })
+keymap("n", "<leader>lf", vim.lsp.buf.format, { desc = "[l]sp [f]ormat text " })
 -- usage: in visual mode, use "J" and "K" to swap selected lines up and down
 keymap("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 keymap("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected lines up" })
@@ -230,9 +231,9 @@ command! -nargs=1 SetFiletype call SetFileType(<f-args>)
 ]])
 keymap("n", "<leader>ft", ":SetFiletype ", { noremap = true, desc = "set [f]ile[t]ype=[ext]" })
 -- [[ Run command on current line ]]
-keymap('n', "<leader>xr", [["xdd@x]], { desc = 'Run command under cursor' })
-keymap("n", "<leader>xFR", [[:%!find .]], { desc = "Replace buffer with ls of cwd at cursor" })
-keymap("n", "<leader>xFP", [[:.!find .]], { desc = "Paste ls of cwd at cursor" })
+keymap('n', "<leader>Xr", [["xdd@x]], { desc = 'Run command under cursor' })
+keymap("n", "<leader>XFR", [[:%!find .]], { desc = "Replace buffer with ls of cwd at cursor" })
+keymap("n", "<leader>XFP", [[:.!find .]], { desc = "Paste ls of cwd at cursor" })
 
 -- Formatting
 -- [[ <leader>w to toggle line wrapping ]]

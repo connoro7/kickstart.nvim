@@ -304,28 +304,61 @@ end
 -- document existing key chains
 local wk = require('which-key')
 wk.add({
-  { "<leader>c",  group = "[C]ode" },
+  { "<leader>a",  group = "[A]vante" },
+  { "<leader>a_", hidden = true },
+  { "<leader>b",  group = "[B]uffer" },
+  { "<leader>b_", hidden = true },
+  { "<leader>c",  group = "[C]ode, [C]opilot-[C]hat" },
   { "<leader>c_", hidden = true },
   { "<leader>d",  group = "[D]ocument" },
   { "<leader>d_", hidden = true },
+  -- e UNUSED
+  -- f UNUSED
   { "<leader>g",  group = "[G]it" },
   { "<leader>g_", hidden = true },
-  { "<leader>h",  group = "Git [H]unk" },
+  { "<leader>h",  group = "Git [Hunk]" },
   { "<leader>h_", hidden = true },
+  { "<leader>i",  group = "[I]nsert" },
+  { "<leader>i_", hidden = true },
+  -- j
+  -- k
+  { "<leader>l",  group = "[L]sp" },
+  { "<leader>l_", hidden = true },
+  { "<leader>m",  group = "[M]essages" },
+  { "<leader>m_", hidden = true },
+  -- n UNUSED
+  { "<leader>O",  group = "[O]pen" },
+  { "<leader>O_", hidden = true },
+  -- p MISC
+  { "<leader>q",  group = "[Q]uickfix" },
+  { "<leader>q_", hidden = true },
   { "<leader>r",  group = "[R]ename" },
   { "<leader>r_", hidden = true },
-  { "<leader>s",  group = "[S]earch" },
+  { "<leader>s",  group = "[S]earch, [S]lide windows" },
   { "<leader>s_", hidden = true },
-  { "<leader>t",  group = "[T]oggle" },
+  { "<leader>t",  group = "[T]oggle, [T]elescope, [T]reesitter" },
   { "<leader>t_", hidden = true },
-  { "<leader>w",  group = "[W]orkspace" },
+  { "<leader>u",  desc = "[U]ndotree" },
+  { "<leader>u_", hidden = true },
+  { "<leader>v",  group = "[V]isual" },
+  { "<leader>v_", hidden = true },
+  { "<leader>w",  group = "[W]orkspace, [W]indow" },
   { "<leader>w_", hidden = true },
+  { "<leader>X",  group = "[X] Execute" },
+  { "<leader>X_", hidden = true },
+  { "<leader>y",  group = "[Y]ank" },
+  { "<leader>y_", hidden = false },
+  { "<leader>Y",  group = "[Y]ank" },
+  { "<leader>Y_", hidden = false },
+  -- z UNUSED (<leader>zf currently for folding)
 })
 -- register which-key VISUAL mode
 -- required for visual <leader>hs (hunk stage) to work
 wk.add({
-  { "<leader>",  group = "VISUAL <leader>", mode = "v" },
-  { "<leader>h", desc = "Git [H]unk",       mode = "v" },
+  { "<leader>",  group = "VISUAL <leader>",   mode = "v" },
+  { "<leader>h", desc = "Git [H]unk",         mode = "v" },
+  { "<leader>a", desc = "[A]fter selection",  mode = "v" },
+  { "<leader>b", desc = "[B]efore selection", mode = "v" },
 }
 )
 
@@ -537,7 +570,7 @@ cmp.setup {
   },
 }
 
-vim.cmd [[colorscheme tokyonight]] -- Options: tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
+vim.cmd [[colorscheme tokyonight-day]] -- Options: tokyonight, tokyonight-night, tokyonight-storm, tokyonight-day, tokyonight-moon
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.api.nvim_set_hl(0, "ColorColumn", { bg = "DarkBlue" })

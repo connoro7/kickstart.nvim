@@ -46,7 +46,28 @@ return {
     },
 
     -- Useful plugin to show you pending keybinds.
-    { 'folke/which-key.nvim', opts = {} },
+    {
+      'folke/which-key.nvim',
+      opts = {
+        preset = "modern", -- classic, modern, helix
+        -- delay = 200,
+        plugins = {
+          marks = true,     -- shows a list of your marks on ' and `
+          registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+          -- No actual key bindings are created
+          spelling = {
+            enabled = true,   -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            suggestions = 10, -- how many suggestions should be shown in the list?
+          },
+        },
+        -- keys = {
+        -- scroll_up = "Up",    -- default: '<C-u>'
+        -- scroll_down = "Down" -- default: '<C-d>'
+        -- },
+      }
+    },
+
 
     -- Color, Colors, Colorscheme
     -- local colors = require('colors')
