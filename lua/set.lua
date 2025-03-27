@@ -6,7 +6,7 @@ vim.opt.isfname:append("@-@")
 -- vim.wo.number = true
 
 -- disable deprecation warnings
-vim.deprecate = function() end
+-- vim.deprecate = function() end
 
 local options = {
 	backup = false,                       -- creates a backup file
