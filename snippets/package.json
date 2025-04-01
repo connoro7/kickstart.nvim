@@ -1,0 +1,49 @@
+{
+	"name": "LuaSnippets",
+	"contributes": {
+		"snippets": [
+			{
+				"language": [
+					"all"
+				],
+				"path": "./all.json"
+			},
+			{
+				"language": [
+					"lua"
+				],
+				"path": "./lua.json"
+			},
+			{
+				"language": [
+					"bash", "sh"
+				],
+				"path": "./bash.json"
+			},
+			{
+				"language": [
+					"python"
+				],
+				"path": "./python.json"
+			},
+			{
+				"language": [
+					"javascript"
+				],
+				"path": "./javascript.json"
+			},
+			{
+				"language": [
+					"typescript"
+				],
+				"path": "./typescript.json"
+			},
+			{
+				"language": [
+					"json"
+				],
+				"path": "./json.json"
+			}
+		]
+	}
+}
