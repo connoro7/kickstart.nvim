@@ -1,4 +1,10 @@
 {
+  "snip1": {
+    "prefix": "bash1",
+    "body": [
+      "bashbashbash"
+    ]
+  },
   "colors": {
     "prefix": "colors",
     "body": [
@@ -8,7 +14,24 @@
       "YELLOW=$'\\033[0;33m'",
       "BLUE=$'\\033[0;34m'",
       "PURPLE=$'\\033[0;35m'",
-      "CYAN=$'\\033[0;36m'"
+      "CYAN=$'\\033[0;36m'",
+      "$1"
+    ]
+  },
+  "filename": {
+    "prefix": "filename",
+    "body": [
+      "FILENAME=$(echo \\$0 | awk -F'/' '{print \\$NF}')",
+      "PARENT_DIR=$(dirname $(readlink -f \\$0))",
+      "usage() {",
+      "    cat <<EOF",
+      "${1:description}",
+      "Usage: $FILENAME [options] <${2:arg1}>",
+      "Options:",
+      "    -${3:arg1}      Arg description",
+      "EOF",
+      "    exit 0",
+      "}"
     ]
   }
 }
