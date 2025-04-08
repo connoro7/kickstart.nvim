@@ -65,7 +65,7 @@ return {
     {
       'folke/which-key.nvim',
       opts = {
-        preset = "modern", -- classic, modern, helix
+        preset = "classic", -- classic, modern, helix
         -- delay = 200,
         plugins = {
           marks = true,     -- shows a list of your marks on ' and `
