@@ -363,10 +363,34 @@ wk.add({
 }
 )
 
+local function safe_require(name)
+  local ok, mod = pcall(require, name)
+  if not ok then
+    vim.notify("Failed to load " .. name)
+    return nil
+  end
+  return mod
+end
+
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
-require('mason').setup()
-require('mason-lspconfig').setup()
+-- require('mason').setup()
+local mason = safe_require('mason')
+if not mason then
+  vim.notify("Cannot set up mason")
+  return
+else
+  mason.setup()
+end
+
+-- require('mason-lspconfig').setup()
+local mason_lspconfig = safe_require('mason-lspconfig')
+if not mason_lspconfig then
+  vim.notify("Cannot set up mason-lspconfig")
+  return
+else
+  mason_lspconfig.setup()
+end
 
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
@@ -432,6 +456,12 @@ local servers = {
   --     }
   --   }
   -- },
+  sqlls = {
+    cmd = { 'sql-language-server', 'up', '--method', 'stdio' },
+    filetypes = { 'sql', 'plsql' },
+    root_markers = { '.sqllsrc.json' },
+    settings = {},
+  },
   pyright = {
     -- enabled = false,
     settings = { -- see Microsoft's Pyright settings documentation: https://github.com/microsoft/pyright/blob/main/docs/settings.md
@@ -497,22 +527,45 @@ mason_lspconfig.setup {
   automatic_installation = true,
 }
 
--- local lspconfig = require 'lspconfig'
+local lspconfig = require 'lspconfig'
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
-      -- lspconfig[server_name].setup {
+    lspconfig[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = (servers[server_name] or {}).settings,
       init_options = (servers[server_name] or {}).init_options,
       filetypes = (servers[server_name] or {}).filetypes,
       cmd = (servers[server_name] or {}).cmd,
+      root_markers = (servers[server_name] or {}).root_markers,
+    }
+  end,
+  -- Custom handler for lua_ls
+  ["lua_ls"] = function()
+    lspconfig.lua_ls.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = servers.lua_ls.settings,
+      on_init = function(client)
+        local path = client.workspace_folders[1].name
+        if not vim.uv.fs_stat(path .. '/.luarc.json') and not vim.uv.fs_stat(path .. '/.luarc.jsonc') then
+          client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+            Lua = {
+              runtime = { version = 'LuaJIT' },
+              workspace = {
+                checkThirdParty = false,
+                library = { vim.env.VIMRUNTIME, vim.fn.stdpath('config') },
+              },
+              diagnostics = { globals = { 'vim' } },
+            }
+          })
+          client.notify('workspace/didChangeConfiguration', { settings = client.config.settings })
+        end
+      end,
     }
   end,
 }
-
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
