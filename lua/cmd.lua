@@ -7,7 +7,7 @@ local nvim_cmd = vim.api.nvim_command
 nvim_cmd("command! -nargs=1 LogLevel lua vim.lsp.set_log_level(<f-args>)")
 
 -- [[ Align Columns ]]
-nvim_cmd("command! -range=% Align <line1>,<line2>!column -t")
+nvim_cmd("command! -range=% AlignColumns <line1>,<line2>!column -t")
 
 -- [[ Align Markdown Tables ]]
 nvim_cmd("command! -range=% AlignTable <line1>,<line2>!tr -s ' ' | column -t -s '|' -o '|'")
