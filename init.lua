@@ -520,7 +520,7 @@ capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp'
 -- OLD -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+-- local mason_lspconfig = require 'mason-lspconfig' -- required above in safe_require
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
