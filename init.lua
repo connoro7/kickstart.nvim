@@ -36,6 +36,22 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Silence these warnings
+local notify_original = vim.notify
+vim.notify = function(msg, ...) -- override notify
+  if
+      msg
+      and (
+        msg:match 'position_encoding param is required'
+        or msg:match 'Defaulting to position encoding of the first client'
+        or msg:match 'multiple different client offset_encodings'
+      )
+  then
+    return
+  end
+  return notify_original(msg, ...)
+end
+
 require('lazy').setup('plugins')
 
 function R(name)
@@ -392,11 +408,19 @@ else
   mason_lspconfig.setup()
 end
 
+-- Setup neovim lua configuration
+require('neodev').setup()
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+---@class lsp.ClientCapabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+
+
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
-
 local servers = {
   -- see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
   -- AVAILABLE SERVERS & THEIR NAMES: https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
@@ -482,7 +506,12 @@ local servers = {
       }
     },
   },
-  ruff = {},
+  ruff = {
+    -- init_options = {
+    -- settings = { },
+    -- capabilities = { }
+    -- }
+  },
   -- ruff_lsp = {
   --   cmd = { 'ruff-lsp' },
   --   filetypes = { 'python' },
@@ -507,20 +536,6 @@ local servers = {
   },
 }
 
--- local versioned_servers = {
---   "ruff@0.5.7",
--- }
-
--- Setup neovim lua configuration
-require('neodev').setup()
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
--- OLD -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Ensure the servers above are installed
--- local mason_lspconfig = require 'mason-lspconfig' -- required above in safe_require
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
@@ -534,6 +549,7 @@ mason_lspconfig.setup_handlers {
     lspconfig[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
+      offset_encoding = 'utf-16',
       settings = (servers[server_name] or {}).settings,
       init_options = (servers[server_name] or {}).init_options,
       filetypes = (servers[server_name] or {}).filetypes,
