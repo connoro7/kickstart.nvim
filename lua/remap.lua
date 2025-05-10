@@ -229,7 +229,9 @@ endfunction
 
 command! -nargs=1 SetFiletype call SetFileType(<f-args>)
 ]])
+-- [[ Set filetype of current buffer ]]
 keymap("n", "<leader>ft", ":SetFiletype ", { noremap = true, desc = "set [f]ile[t]ype=[ext]" })
+
 -- [[ Run command on current line ]]
 keymap('n', "<leader>Xr", [["xdd@x]], { desc = 'Run command under cursor' })
 keymap("n", "<leader>XFR", [[:%!find .]], { desc = "Replace buffer with ls of cwd at cursor" })

@@ -1,16 +1,33 @@
 {
-	"snip1": {
-		"prefix": "all1",
-		"body": [
-			"expands? jumps? $1 $2 !"
-		]
-	},
-	"snip2": {
-		"prefix": "all2",
-		"body": [
-			"multi $1",
-			"line $2",
-			"snippet$0"
-		]
-	}
+  "snip1": {
+    "prefix": "all1",
+    "body": [
+      "expands? jumps? $1 $2 !"
+    ]
+  },
+  "snip2": {
+    "prefix": "all2",
+    "body": [
+      "multi $1",
+      "line $2",
+      "snippet$0"
+    ]
+  },
+  "todo-comments": {
+    "prefix": "comments",
+    "body": [
+      "FIX: FIXME BUG FIXIT ISSUE FAILED ERROR BAD NO DANGER",
+      "TODO: HINT",
+      "SUCCESS: GOOD PASSED DONE",
+      "SEE: See see",
+      "HACK: INVALID",
+      "WARN: WARNING CAUTION ATTENTION IMPORTANT",
+      "PERF: PERFORMANCE OPTIM OPTIMIZE",
+      "NOTE: INFO EXAMPLE TIP SUMMARY TLDR tldr tl;dr",
+      "TEST: TESTING CHECK VERIFY",
+      "LINK: SOURCE",
+      "QUESTION: HELP MISSING",
+      "QUOTE: CITE CITATION"
+    ]
+  }
 }

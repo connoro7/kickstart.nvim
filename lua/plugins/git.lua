@@ -133,6 +133,7 @@ return {
     'akinsho/git-conflict.nvim',
     version = "*",
     config = function()
+      ---@diagnostic disable-next-line: missing-fields
       require('git-conflict').setup {
         default_mappings = false,    -- disable the default mappings
         disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
