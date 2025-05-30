@@ -1,10 +1,5 @@
--- Specify the desired provider locally
-local provider = "copilot"
-
-
 local keymap = vim.keymap.set
 local nvim_cmd = vim.api.nvim_command
-
 
 --[[
 As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by identifying and fixing any bugs or potential edge cases
@@ -19,39 +14,66 @@ As an experienced software engineer specializing in code optimization and best p
 As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by proposing unit tests to validate the code's functionality
 ]]
 
+local provider = "copilot"
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   lazy = false,
+  -- NEVER SET version to "*" -- EVER
   version = false, -- set this if you want to always pull the latest change
+  -- NEVER SET version to "*" -- EVER
   opts = {
     -- ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
     provider = provider,
     auto_suggestions_provider = provider,
     ---@type AvanteSupportedProvider
     claude = {
-      endpoint = "https://api.anthropic.com",
+      -- See: Models: https://docs.anthropic.com/en/docs/about-claude/models/overview
+      --[[
+      claude-opus-4-0
+      claude-sonnet-4-0
+      claude-3-7-sonnet-latest
+      --]]
       model = "claude-3-5-sonnet-20241022",
+      endpoint = "https://api.anthropic.com",
+      api_key_name = "ANTHROPIC_API_KEY",
       temperature = 0,
       max_tokens = 4096,
     },
     ---@type AvanteSupportedProvider
     copilot = {
+      -- See: Models: https://platform.openai.com/docs/models
+      --[[
+      gpt-4.1-2025-04-14, max tokens 32768
+      gpt-4o-2024-11-20, max tokens 16384
+      gpt-4o-2024-08-06, max tokens 16384
+      gpt-4o-2024-05-13, max tokens 4096
+      --]]
+      model = "gpt-4.1-2025-04-14",
       endpoint = "https://api.githubcopilot.com",
-      model = "gpt-4o-2024-08-06", -- gpt-4o-2024-05-13, gpt-4o-2024-08-06
-      proxy = nil,                 -- [protocol://]host[:port] Use this proxy
-      allow_insecure = false,      -- Allow insecure server connections
-      timeout = 30000,             -- Timeout in milliseconds
+      proxy = nil,               -- [protocol://]host[:port] Use this proxy
+      allow_insecure = false,    -- Allow insecure server connections
+      timeout = 30000,           -- Timeout in milliseconds
       temperature = 0,
-      max_tokens = 4096,
+      max_tokens = 32768,        -- max_tokens deprecated in favour of max_completion_tokens
+      max_completion_tokens = 32768,
+      reasoning_effort = "high", -- "low", "medium", "high"
     },
     ---@type AvanteSupportedProvider
     gemini = {
+      -- See: https://aistudio.google.com/prompts/new_chat
+      -- See: https://developers.generativeai.google/learn/models/gemini-2-5
+      --[[
+      gemini-2.5-pro-preview-05-06
+      gemini-2.5-flash-preview-04-17
+      gemini-2.5-flash-preview-05-20
+      --]]
+      model = "gemini-2.5-pro-preview-05-06",
       endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-      model = "gemini-1.5-flash-latest",
+      api_key_name = "GEMINI_API_KEY",
       timeout = 30000, -- Timeout in milliseconds
       temperature = 0,
-      max_tokens = 4096,
+      max_tokens = 8192,
     },
     behaviour = {
       auto_focus_sidebar = false,
@@ -165,9 +187,10 @@ return {
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
     --- The below dependencies are optional,
-    "hrsh7th/nvim-cmp",            -- for auto_suggestions_provider='copilot'
-    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-    "zbirenbaum/copilot.lua",      -- for providers='copilot'
+    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+    "hrsh7th/nvim-cmp",              -- for auto_suggestions_provider='copilot'
+    "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+    "zbirenbaum/copilot.lua",        -- for providers='copilot'
     {
       -- support for image pasting
       "HakonHarnes/img-clip.nvim",
