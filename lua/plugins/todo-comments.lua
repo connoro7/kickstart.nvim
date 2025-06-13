@@ -130,6 +130,4 @@ return {
       -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
     },
   },
-  vim.keymap.set("n", "<leader>tdt", ":TodoTelescope<CR>", { desc = "[t]o[d]o [t]elescope" }),
-  -- vim.keymap.set("n", "<leader>tdq", ":TodoQuickFix<CR>", { desc = "[t]o[d]o [q]uickfix" });
 }
