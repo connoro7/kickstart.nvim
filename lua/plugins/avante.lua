@@ -122,8 +122,8 @@ return {
       sidebar = {
         apply_all = "A",
         apply_cursor = "a",
-        switch_windows = "ss",
-        reverse_switch_windows = "SS",
+        switch_windows = "<C-i>",
+        reverse_switch_windows = "<C-u>",
         add_file = "@",
         remove_file = "d",
       },
