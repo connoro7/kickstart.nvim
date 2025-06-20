@@ -13,15 +13,14 @@ As an experienced software engineer specializing in code optimization and best p
 As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by ensuring proper commenting and documentation
 As an experienced software engineer specializing in code optimization and best practices, please review and improve the following code by proposing unit tests to validate the code's functionality
 ]]
-
 local provider = "copilot"
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   lazy = false,
-  -- NEVER SET version to "*" -- EVER
+  -- DANGER: NEVER SET `version` TO "*" -- EVER
   version = false, -- set this if you want to always pull the latest change
-  -- NEVER SET version to "*" -- EVER
+  -- DANGER: NEVER SET `version` TO "*" -- EVER
   opts = {
     -- ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
     provider = provider,
@@ -64,9 +63,11 @@ return {
       -- See: https://aistudio.google.com/prompts/new_chat
       -- See: https://developers.generativeai.google/learn/models/gemini-2-5
       --[[
-      gemini-2.5-pro-preview-05-06
-      gemini-2.5-flash-preview-04-17
-      gemini-2.5-flash-preview-05-20
+      gemini-2.5-pro -- context length: 1048578, output limit: 65,536
+      gemini-2.5-pro-preview-06-05 -- context length: 1048578, output limit: 65,536
+      gemini-2.5-pro-preview-05-06 -- context length: 1048578, output limit: 65,536
+      gemini-2.5-flash-preview-04-17 -- context length: 1048578, output limit: 65,536
+      gemini-2.5-flash-preview-05-20 -- context length: 1048578, output limit: 65,536
       --]]
       model = "gemini-2.5-pro-preview-05-06",
       endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
