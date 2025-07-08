@@ -61,7 +61,8 @@ keymap("i", "<C-d>", "<C-w>", { desc = "Delete previous word" })
 
 -- [[ Folds, Folding ]]
 -- usage: find next curly brace, then fold under cursor
-keymap({ "n", "v" }, "<leader>zf", "hf{zfa{", { desc = "Fold under cursor" })
+keymap({ "n", "v" }, "<leader>zf{", "zfa{", { desc = "Fold under cursor around {}" })
+keymap({ "n", "v" }, "<leader>zfd", "zf/def", { desc = "Fold to next Python function" })
 -- :set fdm=manual indent expr marker syntax diff
 -- zf/<string> folds from cursor to string
 -- zj, zk moves cursor to next/prev folds
