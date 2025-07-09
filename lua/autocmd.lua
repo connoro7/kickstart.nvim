@@ -22,6 +22,15 @@ autocmd({ "BufWritePost" }, {
 	pattern = "*.cpp,*.h",
 	command = [[silent !clang-format -i %]],
 })
+
+-- auto-reload files when modified externally
+-- https://unix.stackexchange.com/a/383044
+-- https://neovim.discourse.group/t/a-lua-based-auto-refresh-buffers-when-they-change-on-disk-function/2482/4
+-- vim.o.autoread = true -- option set in set.lua
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = { "*" },
+})
 -- [[ Lint Jenkinsfile with jenkinsfile-linter after save ]]
 -- autocmd({ "BufWritePost" }, {
 --   group = format_group,

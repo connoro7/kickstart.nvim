@@ -52,6 +52,7 @@ local options = {
 	foldlevel = 99,                       -- start with all folds open
 	foldmethod = "manual",                -- manual, indent (equal indent form fold), syntax (fold by syntax), marker (fold by foldmarker), expr (), diff (fold text that is not changed)
 	spell = false,                        -- enable spell checking
+	autoread = true,                      -- automatically read file when it has been changed outside of neovim
 }
 
 for k, v in pairs(options) do
