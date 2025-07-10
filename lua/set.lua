@@ -10,7 +10,7 @@ vim.opt.isfname:append("@-@")
 
 local options = {
 	backup = false,                       -- creates a backup file
-	-- clipboard = "unnamedplus", -- allows neovim to access the system clipboard, comment out to keep OS clipboard independent. :h clipboard for more info.
+	clipboard = "unnamedplus",            -- allows neovim to access the system clipboard, comment out to keep OS clipboard independent. :h clipboard for more info.
 	cmdheight = 1,                        -- more space in the neovim command line for displaying messages, use :set cmdheight=X when running multiline commands
 	completeopt = { "menuone", "noselect" }, -- Set completeopt to have a better completion experience, mostly for cmp
 	conceallevel = 0,                     -- so that `` is visible in markdown files
