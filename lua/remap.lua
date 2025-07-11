@@ -25,6 +25,9 @@ keymap("i", "<C-c>", "<Esc>", { desc = "Make ctrl-c work the same everywhere" })
 -- [[ Jump to start/end of line ]]
 keymap({ "n", "v" }, "<Home>", "^", { desc = "Jump to start of line" })
 keymap({ "n", "v" }, "<End>", "$", { desc = "Jump to end of line" })
+-- [[ Jump to after next closing bracket or quote in insert mode]
+keymap("i", "<C-l>", "<C-\\><C-n>:call search('[>)\\]}\"'']', 'W')<CR>a",
+	{ desc = "Jump to next closing bracket in insert mode" })
 -- [[ jump to next/prev selection while cursor stays in middle of screen ]]
 keymap("n", "n", "nzzzv", { desc = "Jump to next selection, but cursor stays in middle of screen" })
 keymap("n", "N", "Nzzzv", { desc = "Jump to prev selection, but cursor stays in middle of screen" })
