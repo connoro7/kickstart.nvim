@@ -370,6 +370,7 @@ wk.add({
   { "<leader>s",  group = "[S]earch, [S]lide windows" },
   { "<leader>s_", hidden = true },
   { "<leader>t",  group = "[T]oggle, [T]elescope, [T]reesitter" },
+  { "T",          group = "[T]odo" },
   { "<leader>t_", hidden = true },
   { "<leader>u",  desc = "[U]ndotree" },
   { "<leader>u_", hidden = true },
@@ -392,6 +393,7 @@ wk.add({
   { "<leader>h", desc = "Git [H]unk",         mode = "v" },
   { "<leader>a", desc = "[A]fter selection",  mode = "v" },
   { "<leader>b", desc = "[B]efore selection", mode = "v" },
+  { "T",         group = "[T]odo",            mode = "v" },
 }
 )
 
