@@ -88,9 +88,11 @@ return {
       priority = {
         style = function(context)
           local value = context.value:lower()
-          if value == "high" then
+          if value == "top" or value == "first" then
+            return { fg = "#ff79c6", bold = true }
+          elseif value == "high" then
             return { fg = "#ff5555", bold = true }
-          elseif value == "medium" then
+          elseif value == "medium" or value == "med" then
             return { fg = "#ffb86c" }
           elseif value == "low" then
             return { fg = "#8be9fd" }

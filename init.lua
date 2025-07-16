@@ -38,6 +38,7 @@ vim.g.maplocalleader = ' '
 
 -- Silence these warnings
 local notify_original = vim.notify
+--- @diagnostic disable-next-line
 vim.notify = function(msg, ...) -- override notify
   if
       msg
@@ -45,6 +46,7 @@ vim.notify = function(msg, ...) -- override notify
         msg:match 'position_encoding param is required'
         or msg:match 'Defaulting to position encoding of the first client'
         or msg:match 'multiple different client offset_encodings'
+        or msg:match 'vim.tbl_islist is deprecated'
       )
   then
     return
@@ -67,8 +69,10 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.diagnostic.config({ jump = { float = true } }) -- See: https://neovim.io/doc/user/diagnostic.html#vim.diagnostic.Opts.jump, and https://github.com/neovim/neovim/pull/29067
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end,
+  { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float,
   { desc = 'Open [v]im [d]iagnostic message' })
 vim.keymap.set('n', '<leader>vq', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
@@ -346,7 +350,7 @@ wk.add({
   { "<leader>d",  group = "[D]ocument" },
   { "<leader>d_", hidden = true },
   -- e UNUSED
-  -- f UNUSED
+  -- f UNUSE
   { "<leader>g",  group = "[G]it" },
   { "<leader>g_", hidden = true },
   { "<leader>h",  group = "Git [Hunk]" },
@@ -370,7 +374,6 @@ wk.add({
   { "<leader>s",  group = "[S]earch, [S]lide windows" },
   { "<leader>s_", hidden = true },
   { "<leader>t",  group = "[T]oggle, [T]elescope, [T]reesitter" },
-  { "T",          group = "[T]odo" },
   { "<leader>t_", hidden = true },
   { "<leader>u",  desc = "[U]ndotree" },
   { "<leader>u_", hidden = true },
@@ -393,9 +396,28 @@ wk.add({
   { "<leader>h", desc = "Git [H]unk",         mode = "v" },
   { "<leader>a", desc = "[A]fter selection",  mode = "v" },
   { "<leader>b", desc = "[B]efore selection", mode = "v" },
-  { "T",         group = "[T]odo",            mode = "v" },
 }
+
 )
+wk.add({
+  { "T", group = "Todo" }, -- group
+  {
+    mode = { "n", "v" },
+    group = "Todo",
+    { "Tt", "<cmd>Checkmate toggle<CR>",                 desc = "[T]odo: Toggle item", },
+    { "Tc", "<cmd>Checkmate check<CR>",                  desc = "[T]odo: Set item as checked (done)", },
+    { "Tu", "<cmd>Checkmate uncheck<CR>",                desc = "[T]odo: Set item as unchecked (not done)", },
+    { "Tn", "<cmd>Checkmate create<CR>",                 desc = "[T]odo: Create item", },
+    { "TR", "<cmd>Checkmate remove_all_metadata<CR>",    desc = "[T]odo: Remove all metadata from a item", },
+    { "Ta", "<cmd>Checkmate archive<CR>",                desc = "[T]odo: Archive checked/completed items (move to bottom section)", },
+    { "Tv", "<cmd>Checkmate metadata select_value<CR>",  desc = "[T]odo: Update the value of a metadata tag under the cursor", },
+    { "T]", "<cmd>Checkmate metadata jump_next<CR>",     desc = "[T]odo: Move cursor to next metadata tag", },
+    { "T[", "<cmd>Checkmate metadata jump_previous<CR>", desc = "[T]odo: Move cursor to previous metadata tag", },
+    { "Tp", "<cmd>Checkmate metadata priority<CR>",      desc = "[T]odo: Set or update the priority of a item", },
+    { "Ts", "<cmd>Checkmate metadata started<CR>",       desc = "[T]odo: Set or update the started date/time of a item", },
+    { "Td", "<cmd>Checkmate metadata done<CR>",          desc = "[T]odo: Set or update the done date/time of a item", },
+  }
+})
 
 local function safe_require(name)
   local ok, mod = pcall(require, name)
