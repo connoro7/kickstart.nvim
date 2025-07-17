@@ -761,62 +761,19 @@ cmp.setup {
   },
 }
 
--- local colors = require("tokyonight.colors")
--- local util = require("tokyonight.util")
+-- [[ Colorscheme Picker]]>>
 vim.cmd [[colorscheme tokyonight]]
+-- vim.cmd [[colorscheme forest-night]]
+-- vim.cmd [[colorscheme fluoromachine]]
+-- vim.cmd [[colorscheme onedark]]
+-- vim.cmd [[colorscheme oxocarbon]]
+-- vim.cmd [[colorscheme poimandres]]
+-- >> Get current colorscheme with `:lua print(vim.g.colors_name)` or just `:colorscheme`
+
+-- [[ Colorscheme Overrides ]]
 -- vim.api.nvim_set_hl(0, "Normal", { bg = "none" }) -- override colors of Normal text
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = colors.orange }) -- override colors of Normal text in floating windows
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 --
---
-
-
--- require("connor.set")
--- require("connor.remap")
---
---
---
---
--- -- Format after saving
--- autocmd({ "BufWritePost" }, {
--- 	group = connorGroup,
--- 	pattern = "*",
--- 	command = [[FormatWrite]],
--- })
---
--- -- Override ruler_column, shift_tab, colorcolumn rules in set.lua
--- local lang_settings = {
--- 	python = { ruler_column = 88 },
--- 	html = { ruler_column = 100 },
--- 	javascript = { ruler_column = 100 },
--- 	typescript = { ruler_column = 100 },
--- 	lua = { ruler_column = 80 },
--- 	markdown = { shift_tab = 2, ruler_column = 80 },
--- 	rst = { shift_tab = 3, ruler_column = 80 },
--- 	toml = { ruler_column = 99 },
--- 	yaml = { shift_tab = 2, ruler_column = 80 },
--- }
--- autocmd("FileType", {
--- 	group = connorGroup,
--- 	pattern = { "*" },
--- 	callback = function(args)
--- 		local ft_settings = lang_settings[vim.bo[args.buf].filetype] or {}
---
--- 		-- set the shiftwidth and tabstop to 4 unless stated otherwise
--- 		vim.opt.shiftwidth = ft_settings.shift_tab or 4
--- 		vim.opt.tabstop = ft_settings.shift_tab or 4
--- 		-- set a ruler column if specificed in lang_settings
--- 		vim.opt.colorcolumn = { ft_settings.ruler_column or 0 }
--- 	end,
--- })
---
--- vim.g.netrw_browse_split = 0
--- vim.g.netrw_banner = 0
--- vim.g.netrw_winsize = 25
---
--- -- Enable nvim-tree:
--- -- disable netrw at the very start of your init.lua
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
